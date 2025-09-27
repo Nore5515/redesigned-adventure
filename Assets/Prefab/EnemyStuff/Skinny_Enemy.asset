@@ -16,3 +16,4 @@ MonoBehaviour:
   localScale: {x: 1, y: 2.5, z: 1}
   m_Speed: 12
   m_HP: 5
+  explosionPrefab: {fileID: 6200171251752617550, guid: dd4829207ff53924ba243d240e778106, type: 3}

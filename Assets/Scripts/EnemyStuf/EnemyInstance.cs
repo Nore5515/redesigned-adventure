@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyInstance : MonoBehaviour
@@ -35,5 +36,19 @@ public class EnemyInstance : MonoBehaviour
         rb.linearVelocity = direction * m_Speed;
         
         Debug.DrawRay(transform.position, transform.forward * 20.0f, Color.red);
+    }
+
+    public void Die()
+    {
+        Instantiate(enemySO.explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "aura_explosion")
+        {
+            Die();
+        }
     }
 }

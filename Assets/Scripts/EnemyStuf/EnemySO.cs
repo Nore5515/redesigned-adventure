@@ -9,4 +9,6 @@ public class EnemySO : ScriptableObject
     [Range(1.0f, 30.0f)] public float m_Speed;
 
     [Range(1, 100)] public int m_HP;
+    
+    [SerializeField] public GameObject explosionPrefab;
 }

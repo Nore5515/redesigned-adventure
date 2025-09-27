@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 7228461371569893923}
   - component: {fileID: 2418701863849453377}
   - component: {fileID: 498105181112885015}
+  - component: {fileID: 4148141469765324499}
+  - component: {fileID: 1028815479764360968}
   m_Layer: 0
-  m_Name: Explosion
-  m_TagString: Untagged
+  m_Name: EllipsoidExplosion
+  m_TagString: aura_explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,14 +667,14 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 10
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 90, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -981,7 +983,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 3
+        scalar: 100
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -2031,7 +2033,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5.14
+      scalar: 7.98
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4904,3 +4906,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336c1e55a28a9004eaebcf319269ecbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &4148141469765324499
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6200171251752617550}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 9
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1028815479764360968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6200171251752617550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f9fba916fa94441ad2277294ec7ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleCollider: {fileID: 4148141469765324499}

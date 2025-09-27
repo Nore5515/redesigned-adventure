@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float knockbackForce = 200.0f;
 
     [SerializeField] private GameObject explosionPrefab;
-    
+    [SerializeField] private GameObject auraExplosionPrefab;
+
     
     
     private BanjoNoteHandler banjoNoteHandler;
@@ -32,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI noteBuffer;
 
     private char[] noteArray = new char[10];
+
+    private char[] spell2Array = {'W','W','S','S','W','W', '\0', '\0', '\0', '\0'};
     private int notePosition = 0;
     
     public Volume postProcessVolume;
@@ -159,8 +162,7 @@ public class PlayerMovement : MonoBehaviour
                 Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, targetMask);
                 if (hit.collider is not null)
                 {
-                    Instantiate(explosionPrefab, hit.point, Quaternion.identity);
-                    Destroy(hit.collider.gameObject);
+                    hit.collider.gameObject.GetComponent<EnemyInstance>().Die();
                 }
                 else
                 {
@@ -172,6 +174,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 			else if (IsSpell2()){
+                Instantiate(auraExplosionPrefab, transform.position, Quaternion.identity);
 			}
             
             ClearNotes();
@@ -192,8 +195,52 @@ public class PlayerMovement : MonoBehaviour
     }
 
 	bool IsSpell2(){
+        return CompareCharArrays(noteArray, spell2Array);
+        
+        char firstNumber = noteArray[0];
+        for (int x = 0; x < 2; x++)
+        {
+            if (noteArray[x] == 0 || noteArray[x] != 'W')
+            {
+                return false;
+            }
+        }
+        for (int x = 2; x < 4; x++)
+        {
+            if (noteArray[x] == 0 || noteArray[x] != 'S')
+            {
+                return false;
+            }
+        }
+        for (int x = 4; x < 6; x++)
+        {
+            if (noteArray[x] == 0 || noteArray[x] != 'W')
+            {
+                return false;
+            }
+        }
 		return true;	
 	}
+
+    /// <summary>
+    ///  Returns true if the two arrays are equal.
+    /// </summary>
+    bool CompareCharArrays(char[] array1, char[] array2)
+    {
+        if (array1.Length != array2.Length)
+        {
+            return false;
+        }
+
+        for (int x = 0; x < array1.Length; x++)
+        {
+            if (array1[x] != array2[x])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     void ClearNotes()
     {

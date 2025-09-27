@@ -6,6 +6,7 @@ TagManager:
   tags:
   - banjo_note_handler
   - banjo_image
+  - aura_explosion
   layers:
   - Default
   - TransparentFX
