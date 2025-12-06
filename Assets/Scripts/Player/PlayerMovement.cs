@@ -83,7 +83,8 @@ public class PlayerMovement : MonoBehaviour
                 if (hit.collider.GetComponent<StaticCharacter>() is not null)
                 {
                     StaticCharacter staticCharacter = hit.collider.GetComponent<StaticCharacter>();
-                    GameObject.FindGameObjectWithTag("dialogue_box").GetComponent<DialogueBox>().LoadLines(staticCharacter.dialogue.lines);
+                    Dialogue dialogue = staticCharacter.Prompt();
+                    GameObject.FindGameObjectWithTag("dialogue_box").GetComponent<DialogueBox>().LoadLines(dialogue.lines);
                 }
             }   
         }
