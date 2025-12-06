@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -71,6 +73,21 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Camera cam = Camera.main;
+            Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, 10.0f);
+            if (hit.collider is not null)
+            {
+                if (hit.collider.GetComponent<StaticCharacter>() is not null)
+                {
+                    StaticCharacter staticCharacter = hit.collider.GetComponent<StaticCharacter>();
+                    GameObject.FindGameObjectWithTag("dialogue_box").GetComponent<DialogueBox>().LoadLines(staticCharacter.dialogue.lines);
+                }
+            }   
+        }
+        
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -123,12 +140,22 @@ public class PlayerMovement : MonoBehaviour
         {
             if (notePosition < noteArray.Length)
             {
-                noteArray[notePosition] = 'A';
-                notePosition++;
-                noteBuffer.text = GetNotes();
-                banjoNoteHandler.PlayB();
+                // noteArray[notePosition] = 'A';
+                // notePosition++;
+                // noteBuffer.text = GetNotes();
+                // banjoNoteHandler.PlayB();
+                RunNote('A', banjoNoteHandler.PlayB);
             }
         }
+
+        void RunNote(char c, Action playNote)
+        {
+            noteArray[notePosition] = c;
+            notePosition++;
+            noteBuffer.text = GetNotes();
+            playNote();
+        }
+        
         if (isSlowMo && Input.GetKeyDown(KeyCode.S))
         {
             if (notePosition < noteArray.Length)

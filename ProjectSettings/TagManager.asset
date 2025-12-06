@@ -7,6 +7,7 @@ TagManager:
   - banjo_note_handler
   - banjo_image
   - aura_explosion
+  - dialogue_box
   layers:
   - Default
   - TransparentFX
