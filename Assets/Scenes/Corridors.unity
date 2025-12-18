@@ -3287,6 +3287,10 @@ PrefabInstance:
       propertyPath: enemySO
       value: 
       objectReference: {fileID: 11400000, guid: 563b7c0fd48be544f915946a6bbd62bc, type: 2}
+    - target: {fileID: 8975978172440683262, guid: fa71505828cadb74aae6153f496b3116, type: 3}
+      propertyPath: watchBoxColliderSize
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
