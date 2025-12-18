@@ -13,4 +13,6 @@ public class EnemySO : ScriptableObject
     [Range(1, 100)] public int m_HP;
     
     [SerializeField] public GameObject explosionPrefab;
+
+    [SerializeField] public bool weeping = false;
 }

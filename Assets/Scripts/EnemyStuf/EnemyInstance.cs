@@ -4,7 +4,6 @@ using UnityEngine.AI;
 
 public class EnemyInstance : MonoBehaviour
 {
-    private Rigidbody rb;
     private GameObject playerObj;
 
     // Stats Loaded from Enemy Scriptable Object
@@ -14,6 +13,10 @@ public class EnemyInstance : MonoBehaviour
     private int m_HP;
 
     private NavMeshAgent agent;
+
+    [SerializeField] private float watchBoxColliderSize = 4.0f;
+
+    public bool isWatched = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,12 +27,20 @@ public class EnemyInstance : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.color = enemySO.color;
         gameObject.transform.localScale = enemySO.localScale;
         
-        rb = GetComponent<Rigidbody>();
         playerObj = GameObject.FindGameObjectWithTag("Player").gameObject;
         agent = GetComponent<NavMeshAgent>();
 
         agent.speed = m_Speed;
         agent.acceleration = m_Acceleration;
+
+        if (enemySO.weeping)
+        {
+            gameObject.tag = "weeping";
+            BoxCollider watchBoxCollider = gameObject.AddComponent<BoxCollider>();
+            watchBoxCollider.size = new Vector3(watchBoxColliderSize,watchBoxColliderSize,watchBoxColliderSize);
+            watchBoxCollider.isTrigger = true;
+
+        }
     }
 
     // Update is called once per frame
@@ -45,8 +56,15 @@ public class EnemyInstance : MonoBehaviour
         // rb.linearVelocity = direction * m_Speed;
         //
         Debug.DrawRay(transform.position, transform.forward * 20.0f, Color.red);
-        
-        agent.SetDestination(playerObj.transform.position);
+
+        if (enemySO.weeping && isWatched)
+        {
+            agent.SetDestination(this.transform.position);
+        }
+        else
+        {
+            agent.SetDestination(playerObj.transform.position);
+        }
     }
 
     public void Die()

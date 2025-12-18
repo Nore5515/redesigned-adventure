@@ -8,6 +8,7 @@ TagManager:
   - banjo_image
   - aura_explosion
   - dialogue_box
+  - weeping
   layers:
   - Default
   - TransparentFX

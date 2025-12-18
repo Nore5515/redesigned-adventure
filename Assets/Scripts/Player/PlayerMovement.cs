@@ -70,9 +70,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private float dist = -25.0f;
+    
     // Update is called once per frame
     void Update()
     {
+
+
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            dist -= 10.0f;
+            Debug.Log(dist);
+            RenderSettings.fogStartDistance = dist;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Plus))
+        {
+            dist += 10.0f;
+            Debug.Log(dist);
+            RenderSettings.fogStartDistance = dist;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            RenderSettings.fog = !RenderSettings.fog;
+            RenderSettings.fogStartDistance = dist;
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
