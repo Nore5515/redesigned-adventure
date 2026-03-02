@@ -67,9 +67,7 @@ public class PlayerWeepingAngelLooking : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag == "weeping")
                     {
-                        Debug.Log("Weeping Angel Spotted!");
                         isWatched = true;
-                        // hit.collider.gameObject.GetComponent<EnemyInstance>().isWatched = true;
                         observationStatus.TryAdd(hit.collider.gameObject, true);
                         observationStatus[hit.collider.gameObject] = true;
                     }

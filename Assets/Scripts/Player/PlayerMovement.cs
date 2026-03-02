@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -87,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Plus))
         {
             dist += 10.0f;
-            Debug.Log(dist);
+            Debug.Log(dist); 
             RenderSettings.fogStartDistance = dist;
         }
 
@@ -103,11 +104,10 @@ public class PlayerMovement : MonoBehaviour
             Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, 10.0f);
             if (hit.collider is not null)
             {
-                if (hit.collider.GetComponent<StaticCharacter>() is not null)
+                if (hit.collider.GetComponent<Interactable>() is not null)
                 {
-                    StaticCharacter staticCharacter = hit.collider.GetComponent<StaticCharacter>();
-                    Dialogue dialogue = staticCharacter.Prompt();
-                    GameObject.FindGameObjectWithTag("dialogue_box").GetComponent<DialogueBox>().LoadLines(dialogue.lines);
+                    Interactable interactable = hit.collider.GetComponent<Interactable>();
+                    interactable.Interact(this);
                 }
             }   
         }
@@ -164,10 +164,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (notePosition < noteArray.Length)
             {
-                // noteArray[notePosition] = 'A';
-                // notePosition++;
-                // noteBuffer.text = GetNotes();
-                // banjoNoteHandler.PlayB();
                 RunNote('A', banjoNoteHandler.PlayB);
             }
         }
@@ -227,7 +223,6 @@ public class PlayerMovement : MonoBehaviour
 			else if (IsSpell2()){
                 Instantiate(auraExplosionPrefab, transform.position, Quaternion.identity);
 			}
-            
             ClearNotes();
         }
     }

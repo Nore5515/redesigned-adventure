@@ -63,7 +63,24 @@ public class EnemyInstance : MonoBehaviour
         }
         else
         {
-            agent.SetDestination(playerObj.transform.position);
+            MovementLogic(playerObj.transform.position);
+        }
+    }
+
+    void MovementLogic(Vector3 pos)
+    {
+        NavMeshPath path = new NavMeshPath();
+        if (NavMesh.CalculatePath(transform.position, pos, NavMesh.AllAreas, path)) {
+            if (path.status == NavMeshPathStatus.PathComplete) {
+                // Path exists!
+                agent.SetDestination(pos);
+            }
+            else
+            {
+                // we want them to move to the nearest door interactable to open it up and try again.
+                agent.SetDestination(pos);
+
+            }
         }
     }
 

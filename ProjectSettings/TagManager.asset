@@ -9,6 +9,8 @@ TagManager:
   - aura_explosion
   - dialogue_box
   - weeping
+  - navmesh
+  - interactable
   layers:
   - Default
   - TransparentFX
