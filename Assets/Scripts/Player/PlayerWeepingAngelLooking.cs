@@ -36,7 +36,7 @@ public class PlayerWeepingAngelLooking : MonoBehaviour
         for (int x = 0; x < observationStatus.Count; x++)
         {
             KeyValuePair<GameObject, bool> kvp = observationStatus.ElementAt(x);
-            if (kvp.Key is null)
+            if (kvp.Key == null)
             {
                 observationStatus.Remove(kvp.Key);
                 continue;
@@ -77,7 +77,10 @@ public class PlayerWeepingAngelLooking : MonoBehaviour
 
         foreach (KeyValuePair<GameObject, bool> kvp in observationStatus)
         {
-            kvp.Key.GetComponent<EnemyInstance>().isWatched = kvp.Value;
+            if (kvp.Key != null)
+            {
+                kvp.Key.GetComponent<EnemyInstance>().isWatched = kvp.Value;
+            }
         }
 
         if (isWatched)

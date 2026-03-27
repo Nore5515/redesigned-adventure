@@ -11,6 +11,7 @@ TagManager:
   - weeping
   - navmesh
   - interactable
+  - player_handler
   layers:
   - Default
   - TransparentFX

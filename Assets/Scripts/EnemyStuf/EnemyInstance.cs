@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyInstance : MonoBehaviour
 {
     private GameObject playerObj;
+    private PlayerHandler playerHandler;
 
     // Stats Loaded from Enemy Scriptable Object
     public EnemySO enemySO;
@@ -17,10 +19,15 @@ public class EnemyInstance : MonoBehaviour
     [SerializeField] private float watchBoxColliderSize = 4.0f;
 
     public bool isWatched = false;
+
+    private Rigidbody rb;
+
+    private bool knockbacked = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         m_Speed = enemySO.m_Speed;
         m_Acceleration = enemySO.m_Acceleration;
         m_HP = enemySO.m_HP;
@@ -28,6 +35,7 @@ public class EnemyInstance : MonoBehaviour
         gameObject.transform.localScale = enemySO.localScale;
         
         playerObj = GameObject.FindGameObjectWithTag("Player").gameObject;
+        playerHandler = GameObject.FindGameObjectWithTag("player_handler").GetComponent<PlayerHandler>();
         agent = GetComponent<NavMeshAgent>();
 
         agent.speed = m_Speed;
@@ -57,13 +65,16 @@ public class EnemyInstance : MonoBehaviour
         //
         Debug.DrawRay(transform.position, transform.forward * 20.0f, Color.red);
 
-        if (enemySO.weeping && isWatched)
+        if (!knockbacked)
         {
-            agent.SetDestination(this.transform.position);
-        }
-        else
-        {
-            MovementLogic(playerObj.transform.position);
+            if (enemySO.weeping && isWatched)
+            {
+                agent.SetDestination(this.transform.position);
+            }
+            else
+            {
+                MovementLogic(playerObj.transform.position);
+            }
         }
     }
 
@@ -82,6 +93,32 @@ public class EnemyInstance : MonoBehaviour
 
             }
         }
+    }
+
+    public void FlingAwayFromPoint(Vector3 point)
+    {
+        if (!knockbacked)
+        {
+            EnableRigidbody(true);
+            Vector3 direction = (transform.position - point).normalized;
+            rb.AddForce(direction * enemySO.m_playerKnockback, ForceMode.Impulse);
+            knockbacked = true;
+            StartCoroutine(KnockbackCountdown(3.0f));
+            playerHandler.DealDamage(enemySO.m_Dmg);
+        }
+    }
+
+    IEnumerator KnockbackCountdown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        knockbacked = false;
+        EnableRigidbody(false);
+    }
+
+    void EnableRigidbody(bool enable)
+    {
+        rb.isKinematic = !enable;
+        agent.enabled = !enable;
     }
 
     public void Die()

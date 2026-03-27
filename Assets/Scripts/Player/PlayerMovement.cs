@@ -18,15 +18,18 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private GameObject auraExplosionPrefab;
-
     
+    [SerializeField] private SwordPicHandler swordPicHandler;
     
     private BanjoNoteHandler banjoNoteHandler;
     private GameObject banjoImage;
+    [SerializeField]
+    private PlayerHandler playerHandler;
     
     private Vector3 velocity;
     private bool isGrounded;
-    
+
+    public float swordRange = 5.0f;
     public float gravity = -9.81f;
     public float groundDistance = 0.4f;
     public float jumpHeight = 3.0f;
@@ -204,17 +207,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isSlowMo && Input.GetMouseButtonDown(0))
         {
+            SwordSwing();
+            
             if (IsSpell1())
             {
                 Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, targetMask);
-                if (hit.collider is not null)
+                if (hit.collider != null)
                 {
                     hit.collider.gameObject.GetComponent<EnemyInstance>().Die();
                 }
                 else
                 {
                     Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitGround, Mathf.Infinity, groundMask);
-                    if (hitGround.collider is not null)
+                    if (hitGround.collider != null)
                     {
                         Instantiate(explosionPrefab, hitGround.point, Quaternion.identity);
                     }
@@ -224,6 +229,18 @@ public class PlayerMovement : MonoBehaviour
                 Instantiate(auraExplosionPrefab, transform.position, Quaternion.identity);
 			}
             ClearNotes();
+        }
+    }
+
+    void SwordSwing()
+    {
+        swordPicHandler.TriggerSword();
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitSword, swordRange, targetMask);
+        if (hitSword.collider != null)
+        {
+            Debug.Log(hitSword.collider.gameObject.name);
+            hitSword.collider.gameObject.GetComponent<EnemyInstance>().Die();
+            playerHandler.AddXp(30);
         }
     }
 
@@ -242,30 +259,6 @@ public class PlayerMovement : MonoBehaviour
 
 	bool IsSpell2(){
         return CompareCharArrays(noteArray, spell2Array);
-        
-        char firstNumber = noteArray[0];
-        for (int x = 0; x < 2; x++)
-        {
-            if (noteArray[x] == 0 || noteArray[x] != 'W')
-            {
-                return false;
-            }
-        }
-        for (int x = 2; x < 4; x++)
-        {
-            if (noteArray[x] == 0 || noteArray[x] != 'S')
-            {
-                return false;
-            }
-        }
-        for (int x = 4; x < 6; x++)
-        {
-            if (noteArray[x] == 0 || noteArray[x] != 'W')
-            {
-                return false;
-            }
-        }
-		return true;	
 	}
 
     /// <summary>

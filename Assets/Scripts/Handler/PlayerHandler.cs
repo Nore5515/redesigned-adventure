@@ -1,0 +1,64 @@
+using System;
+using Player;
+using UnityEngine;
+
+public class PlayerHandler : MonoBehaviour
+{
+    [SerializeField]
+    CanvasHandler canvasHandler;
+
+    [SerializeField] public PlayerStats playerStats;
+    [SerializeField] public PlayerStats defaultPlayerStats;
+    
+    [SerializeField] LevelUpHandler levelUpHandler;
+    
+    public void Start()
+    {
+        AddXp(0);
+        ResetStats();
+    }
+
+    public void ResetStats()
+    {
+        playerStats = Instantiate(defaultPlayerStats);
+    }
+
+    public void AddXp(int amount)
+    {
+        playerStats.xp += amount;
+        if (playerStats.xp >= playerStats.maxXp)
+        {
+            playerStats.level++;
+            playerStats.xp -= playerStats.maxXp;
+            playerStats.maxXp += 25; 
+            levelUpHandler.ShowLevelUpMenu(playerStats);
+        }
+
+        canvasHandler.UpdateHP(playerStats.hp, playerStats.maxHp);
+        canvasHandler.UpdateMP(playerStats.mp, playerStats.maxMp);
+        canvasHandler.UpdateXP(playerStats.xp, playerStats.maxXp);
+        canvasHandler.UpdateLevel(playerStats.level);
+    }
+
+    public void LevelHP()
+    {
+        playerStats.maxHp += 2;
+        playerStats.hp += 2;
+    }
+
+    public void DealDamage(int amount)
+    {
+        playerStats.hp -= amount;
+        canvasHandler.UpdateAll(playerStats);
+    }
+
+    public void LevelSpeed()
+    {
+        playerStats.speedMod += 0.2f;
+    }
+
+    public void LevelJump()
+    {
+        playerStats.jumpMod += 0.2f;
+    }
+}
