@@ -10,7 +10,7 @@ public class AbilityPurchaseButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI desc;
     [SerializeField] private Image icon;
 
-    [SerializeField] private Button button;
+    [SerializeField] public Button button;
     
     public void Init(string title, string desc, Sprite img, UnityAction lockAbility)
     {

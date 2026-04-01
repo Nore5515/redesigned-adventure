@@ -21,12 +21,19 @@ public class LevelUpHandler : MonoBehaviour
     {
         levelUpMenuGO.SetActive(true);
         levelUpPanel.SetStats(playerStats);
-        
-        levelUpPanel.AddAbilityToStore(abilityHandler.ProvideRandomAbility(), 0);
-        levelUpPanel.AddAbilityToStore(abilityHandler.ProvideRandomAbility(), 1);
-        levelUpPanel.AddAbilityToStore(abilityHandler.ProvideRandomAbility(), 2);
+
+        // TODO: Change this 3 to "number of options available"
+        for (int x = 0; x < 3; x++)
+        {
+            levelUpPanel.AddAbilityToStore(abilityHandler.ProvideRandomAbility());
+        }
         
         levelUpPanel.Pause();
+    }
+
+    public void AssignAbility(AbilitySO ability)
+    {
+        Debug.Log("beep beep! just got ability " + ability.name + "!");
     }
     
     public void RaiseHP()
@@ -44,11 +51,4 @@ public class LevelUpHandler : MonoBehaviour
         playerHandler.LevelJump();
     }
     
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using Player;
@@ -12,18 +13,30 @@ public class LevelUpPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private TextMeshProUGUI speedText;
     [SerializeField] private TextMeshProUGUI jumpText;
+    [SerializeField] private TextMeshProUGUI noAbilityConfirmText;
+    [SerializeField] private TextMeshProUGUI confirmButtonText;
     
     [SerializeField] private LevelUpHandler levelUpHandler;
 
     [SerializeField] List<AbilityPurchaseButton> abilityButtons = new();
     
+    
     PlayerStats playerStats;
+
+    private Button currentlyLockedButton = null;
+
+    private int assignedAbilities = 0;
+    private AbilitySO assignedAbility = null;
     
     public void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
         UpdateStats();
+        assignedAbilities = 0;
+        assignedAbility = null;
+        noAbilityConfirmText.gameObject.SetActive(false);
+        confirmButtonText.text = "Continue";
     }
 
     public void SetStats(PlayerStats playerStats)
@@ -32,15 +45,42 @@ public class LevelUpPanel : MonoBehaviour
         UpdateStats();
     }
 
-    public void AddAbilityToStore(AbilitySO ability, int slot)
+    public void AddAbilityToStore(AbilitySO ability)
     {
-        UnityAction onClick = AbilityLockOnClick;
+        int slot = assignedAbilities;
+        UnityAction onClick = () => AbilityLockOnClick(ability, abilityButtons[slot].button);
         abilityButtons[slot].Init(ability.name, ability.description, ability.icon, onClick);
+        assignedAbilities++;
+    }
+    
+    // TODO: Move assignment out of this and into the on click for the "all done" button.
+    // Have it assign only the locked ability.
+    // ...also have a popup confirming if you don't assign any ability.
+    void AbilityLockOnClick(AbilitySO ability, Button button)
+    {
+        currentlyLockedButton = button;
+        assignedAbility = ability;
+        UpdateLockedButton();
     }
 
-    void AbilityLockOnClick()
+    void AssignAbility()
     {
-        Debug.Log("Locked!");
+        if (assignedAbility != null)
+        {
+            levelUpHandler.AssignAbility(assignedAbility);
+        }
+    }
+
+    void UpdateLockedButton()
+    {
+        foreach (AbilityPurchaseButton button in abilityButtons)
+        {
+            button.button.interactable = true;
+        }
+        if (currentlyLockedButton != null)
+        {
+            currentlyLockedButton.interactable = false;
+        }
     }
     
     void UpdateStats()
@@ -52,8 +92,17 @@ public class LevelUpPanel : MonoBehaviour
     
     public void Unpause()
     {
+        if (assignedAbility == null && noAbilityConfirmText.gameObject.activeSelf == false)
+        {
+            confirmButtonText.text = "Confirm";
+            noAbilityConfirmText.gameObject.SetActive(true);
+            return;
+        }
         Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.Locked;
+        AssignAbility();
+        assignedAbility = null;
+        UpdateLockedButton();
         gameObject.SetActive(false);
     }
 
