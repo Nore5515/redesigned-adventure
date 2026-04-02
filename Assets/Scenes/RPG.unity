@@ -179,6 +179,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166c5e64bb6afc14ca97a8d28cd6b00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &187094568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8181448991451923292, guid: 285da18db285faf46988a6e7914b79a2, type: 3}
+  m_PrefabInstance: {fileID: 5934929896383876909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &318705844
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,6 +881,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d33beef13781bc40b55cb99b7dc1e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &655725546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7547044969413541348, guid: 285da18db285faf46988a6e7914b79a2, type: 3}
+  m_PrefabInstance: {fileID: 5934929896383876909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &656075361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8228708048453117913, guid: 285da18db285faf46988a6e7914b79a2, type: 3}
@@ -1105,6 +1127,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2028790936}
   m_SourcePrefab: {fileID: 100100000, guid: fa71505828cadb74aae6153f496b3116, type: 3}
+--- !u!114 &1072873550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5722958841141070494, guid: 285da18db285faf46988a6e7914b79a2, type: 3}
+  m_PrefabInstance: {fileID: 5934929896383876909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1189817799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,6 +1431,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbilityHandler
   playerStats: {fileID: 11400000, guid: 1b1fbb8018d69dc4cb7caea5fd987d60, type: 2}
+  abilityImages:
+  - {fileID: 1072873550}
+  - {fileID: 2034977251}
+  - {fileID: 187094568}
+  - {fileID: 655725546}
   allAbilityList:
   - {fileID: 11400000, guid: 4714ca170bd63c84089a41512082c13c, type: 2}
   - {fileID: 11400000, guid: 61c08e6d7cd0cf343b093b20a91a5960, type: 2}
@@ -1581,6 +1619,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2034977251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1883136510263211718, guid: 285da18db285faf46988a6e7914b79a2, type: 3}
+  m_PrefabInstance: {fileID: 5934929896383876909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &2085150462
 PrefabInstance:
   m_ObjectHideFlags: 0

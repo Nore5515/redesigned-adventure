@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AbilityHandler : MonoBehaviour
 {
     [SerializeField] PlayerStats playerStats;
     private AbilitySO[] abilities = new AbilitySO[4];
     
+    [SerializeField] Image[] abilityImages = new Image[4];
+    
     [SerializeField] List<AbilitySO> allAbilityList;
+    private int abilityCount = 0;
 
     public AbilitySO ProvideRandomAbility()
     {
@@ -45,6 +49,21 @@ public class AbilityHandler : MonoBehaviour
     public void AssignAbility(AbilitySO ability, int index)
     {
         abilities[index] = ability;
+        abilityImages[index].sprite = ability.icon;
+    }
+    
+    public void AssignAbility(AbilitySO ability)
+    {
+        // TODO: set 4 to a proper constant (max abilities)
+        if (abilityCount < 4)
+        {
+            AssignAbility(ability, abilityCount);
+            abilityCount++;
+        }
+        else
+        {
+            Debug.Log("Ability slot is full!");
+        }
     }
 
     private void CastAbility(int abilityIndex)
