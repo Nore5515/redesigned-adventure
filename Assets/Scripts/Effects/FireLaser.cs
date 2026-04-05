@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System.Collections;
+using Entities;
 using UnityEngine;
 
 namespace Abilities
@@ -14,6 +15,12 @@ namespace Abilities
         public Color colorEnd;
         public int dmg;
         public Material material;
+
+        IEnumerator DisableLaser(LineRenderer lineRenderer)
+        {
+            yield return new WaitForSeconds(0.2f);
+            lineRenderer.positionCount = 0;
+        }
         
         public override void Apply(Entity caster, Entity[] targets)
         {
@@ -59,7 +66,10 @@ namespace Abilities
                     if (hit.collider.GetComponent<Entity>() != null)
                     {
                         Entity hitEntity = hit.collider.GetComponent<Entity>();
-                        hitEntity.DealDamage(dmg);
+                        if (hitEntity != caster)
+                        {
+                            hitEntity.DealDamage(dmg);
+                        }
                     }
                 }
             }
@@ -69,6 +79,7 @@ namespace Abilities
             lineRenderer.SetPosition(0, startPos);
             lineRenderer.SetPosition(1, targetPos);
 
+            casterGo.GetComponent<MonoBehaviour>().StartCoroutine((DisableLaser(lineRenderer)));
         }
     }
 }

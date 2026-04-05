@@ -9,6 +9,8 @@ public class EnemyInstance : MonoBehaviour, Entity
     private GameObject playerObj;
     private PlayerHandler playerHandler;
 
+    [SerializeField] private GameObject meshObj;
+
     // Stats Loaded from Enemy Scriptable Object
     public EnemySO enemySO;
     private float m_Speed;
@@ -34,8 +36,19 @@ public class EnemyInstance : MonoBehaviour, Entity
         m_Acceleration = enemySO.m_Acceleration;
         m_HP = enemySO.m_HP;
         xpReward = enemySO.xpReward;
-        gameObject.GetComponent<Renderer>().material.color = enemySO.color;
-        gameObject.transform.localScale = enemySO.localScale;
+        
+        // Mesh Scaling
+        meshObj.GetComponent<Renderer>().material.color = enemySO.color;
+        meshObj.transform.localScale = enemySO.localScale;
+        Vector3 tempPos = meshObj.transform.position;
+        meshObj.transform.position = tempPos + new Vector3(0.0f, enemySO.localScale.y - 1, 0.0f);
+        
+        // Collider Scaling
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        capsuleCollider.radius *= enemySO.localScale.x;
+        capsuleCollider.height *= enemySO.localScale.y;
+        capsuleCollider.center = new Vector3(capsuleCollider.center
+            .x, capsuleCollider.center.y + enemySO.localScale.y - 1, capsuleCollider.center.z);
         
         playerObj = GameObject.FindGameObjectWithTag("Player").gameObject;
         playerHandler = GameObject.FindGameObjectWithTag("player_handler").GetComponent<PlayerHandler>();
