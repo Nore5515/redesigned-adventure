@@ -1430,15 +1430,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e543e5eeacebff74da645b72b03f5b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbilityHandler
-  playerStats: {fileID: 11400000, guid: 1b1fbb8018d69dc4cb7caea5fd987d60, type: 2}
   abilityImages:
   - {fileID: 1072873550}
   - {fileID: 2034977251}
   - {fileID: 187094568}
   - {fileID: 655725546}
   allAbilityList:
-  - {fileID: 11400000, guid: 4714ca170bd63c84089a41512082c13c, type: 2}
-  - {fileID: 11400000, guid: 61c08e6d7cd0cf343b093b20a91a5960, type: 2}
+  - {fileID: 11400000, guid: fe1b013930ea74e40bd86dbba49d9e1b, type: 2}
+  playerHandler: {fileID: 1189817801}
 --- !u!1001 &1756707569
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Entities;
 using Player;
 using UnityEngine;
 
@@ -12,10 +14,25 @@ public class PlayerHandler : MonoBehaviour
     
     [SerializeField] LevelUpHandler levelUpHandler;
     
+    public Entity playerEntity;
+    
     public void Start()
     {
         AddXp(0);
         ResetStats();
+        StartCoroutine(RegenLoop());
+        playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+    }
+
+    IEnumerator RegenLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1.0f);
+            playerStats.mp = Mathf.Min(playerStats.mp + playerStats.mpRegen, playerStats.maxMp);
+            playerStats.hp = Mathf.Min(playerStats.hp + playerStats.hpRegen, playerStats.maxHp);
+            UpdateCanvas();
+        }
     }
 
     public void ResetStats()
@@ -33,32 +50,42 @@ public class PlayerHandler : MonoBehaviour
             playerStats.maxXp += 25; 
             levelUpHandler.ShowLevelUpMenu(playerStats);
         }
+        UpdateCanvas();
+    }
 
-        canvasHandler.UpdateHP(playerStats.hp, playerStats.maxHp);
-        canvasHandler.UpdateMP(playerStats.mp, playerStats.maxMp);
-        canvasHandler.UpdateXP(playerStats.xp, playerStats.maxXp);
-        canvasHandler.UpdateLevel(playerStats.level);
+    public void UpdateCanvas()
+    {
+        canvasHandler.UpdateAll(playerStats);
     }
 
     public void LevelHP()
     {
         playerStats.maxHp += 2;
         playerStats.hp += 2;
+        UpdateCanvas();
+    }
+
+    public void PayAbilityCost(AbilitySO ability)
+    {
+        playerStats.hp -= ability.hpCost;
+        playerStats.mp -= ability.manaCost;
     }
 
     public void DealDamage(int amount)
     {
         playerStats.hp -= amount;
-        canvasHandler.UpdateAll(playerStats);
+        UpdateCanvas();
     }
 
     public void LevelSpeed()
     {
         playerStats.speedMod += 0.2f;
+        UpdateCanvas();
     }
 
     public void LevelJump()
     {
         playerStats.jumpMod += 0.2f;
+        UpdateCanvas();
     }
 }

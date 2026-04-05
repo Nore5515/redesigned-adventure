@@ -16,7 +16,7 @@ public class AbilityPurchaseButton : MonoBehaviour
     {
         this.title.text = title;
         this.desc.text = desc;
-        icon.sprite = img;
+        icon.sprite = img;  
         button.onClick.AddListener(lockAbility);
     }
 }

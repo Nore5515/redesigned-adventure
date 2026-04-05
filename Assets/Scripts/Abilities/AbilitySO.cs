@@ -1,4 +1,5 @@
 ﻿using Abilities;
+using Entities;
 using Player;
 using Unity.Profiling.LowLevel.Unsafe;
 using UnityEngine;
@@ -16,29 +17,34 @@ public class AbilitySO : ScriptableObject
     // Default True. 
     public bool cooldownComplete = true;
 
-    public bool canCast;
+    public bool canCast = true;
     
     public Effect[] effects;
 
     public bool CanCast(PlayerStats playerStats)
     {
         if (!canCast) return false;
-        if (!cooldownComplete) return false; 
+        // TODO: Implement cooldowns properly.
+        if (!cooldownComplete && false) return false; 
         if (playerStats.hp >= hpCost && playerStats.mp >= manaCost)
         {
+            Debug.Log("Can afford: " + name);
             return true;
         }
+        Debug.Log("Can't SUCKA afford: " + name);
         return false;
     }
 
-    public void Cast(PlayerStats playerStats, GameObject caster, GameObject[] targets)
+    public bool Cast(PlayerStats playerStats, Entity caster, Entity[] targets)
     {
-        if (!CanCast(playerStats)) return; 
-        playerStats.hp -= hpCost;
-        playerStats.mp -= manaCost;
+        Debug.Log("Casting Ability: " + name);
+        if (!CanCast(playerStats)) return false; 
+        
         foreach (Effect effect in effects)
         {
             effect.Apply(caster, targets);
         }
+
+        return true;
     }
 }

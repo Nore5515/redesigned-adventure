@@ -17,4 +17,6 @@ public class EnemySO : ScriptableObject
     [SerializeField] public GameObject explosionPrefab;
 
     [SerializeField] public bool weeping = false;
+
+    [SerializeField] public int xpReward = 30;
 }

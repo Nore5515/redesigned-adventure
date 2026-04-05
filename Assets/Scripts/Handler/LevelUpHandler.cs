@@ -33,7 +33,6 @@ public class LevelUpHandler : MonoBehaviour
 
     public void AssignAbility(AbilitySO ability)
     {
-        Debug.Log("beep beep! just got ability " + ability.name + "!");
         abilityHandler.AssignAbility(ability);
     }
     

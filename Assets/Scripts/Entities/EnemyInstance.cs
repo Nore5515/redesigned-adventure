@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using Entities;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyInstance : MonoBehaviour
+public class EnemyInstance : MonoBehaviour, Entity
 {
     private GameObject playerObj;
     private PlayerHandler playerHandler;
@@ -13,6 +14,7 @@ public class EnemyInstance : MonoBehaviour
     private float m_Speed;
     private float m_Acceleration;
     private int m_HP;
+    private int xpReward;
 
     private NavMeshAgent agent;
 
@@ -31,6 +33,7 @@ public class EnemyInstance : MonoBehaviour
         m_Speed = enemySO.m_Speed;
         m_Acceleration = enemySO.m_Acceleration;
         m_HP = enemySO.m_HP;
+        xpReward = enemySO.xpReward;
         gameObject.GetComponent<Renderer>().material.color = enemySO.color;
         gameObject.transform.localScale = enemySO.localScale;
         
@@ -134,4 +137,32 @@ public class EnemyInstance : MonoBehaviour
             Die();
         }
     }
+
+    #region Entity Functions
+    
+    public void DealDamage(int damage)
+    {
+        m_HP -= damage;
+        if (m_HP <= 0)
+        {
+            Die();
+        }
+    }
+
+    public int GetHP()
+    {
+        return m_HP;
+    }
+
+    public int GetXPReward()
+    {
+        return xpReward;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    #endregion
 }

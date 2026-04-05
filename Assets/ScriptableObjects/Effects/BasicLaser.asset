@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3ec6a611344ed89c4f5c612ebc0558, type: 3}
+  m_Name: BasicLaser
+  m_EditorClassIdentifier: Assembly-CSharp::Abilities.FireLaser
+  widthStart: 0.2
+  widthEnd: 1
+  colorStart: {r: 0.9811321, g: 0.2252283, b: 0.2252283, a: 0}
+  colorEnd: {r: 0.11006278, g: 0.33472064, b: 1, a: 0}
+  dmg: 10
+  material: {fileID: 2100000, guid: e669741bdcde0dd4196ae1b3f458a55d, type: 2}

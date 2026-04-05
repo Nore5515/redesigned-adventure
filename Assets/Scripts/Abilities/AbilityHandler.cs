@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class AbilityHandler : MonoBehaviour
 {
-    [SerializeField] PlayerStats playerStats;
     private AbilitySO[] abilities = new AbilitySO[4];
     
     [SerializeField] Image[] abilityImages = new Image[4];
@@ -14,6 +13,8 @@ public class AbilityHandler : MonoBehaviour
     [SerializeField] List<AbilitySO> allAbilityList;
     private int abilityCount = 0;
 
+    [SerializeField] PlayerHandler playerHandler;
+    
     public AbilitySO ProvideRandomAbility()
     {
         return allAbilityList[Random.Range(0, allAbilityList.Count)];
@@ -68,10 +69,13 @@ public class AbilityHandler : MonoBehaviour
 
     private void CastAbility(int abilityIndex)
     {
-        Debug.Log("Casting Ability: " + abilityIndex);
         if (abilities[abilityIndex] == null) return;
-        abilities[abilityIndex].Cast(playerStats, null, null);
-        abilities[abilityIndex].cooldownComplete = false;
-        StartCoroutine(StartCooldown(abilityIndex, abilities[abilityIndex].cooldown));
+        if (abilities[abilityIndex].Cast(playerHandler.playerStats, playerHandler.playerEntity, null))
+        {
+            abilities[abilityIndex].cooldownComplete = false;
+            StartCoroutine(StartCooldown(abilityIndex, abilities[abilityIndex].cooldown));
+            playerHandler.PayAbilityCost(abilities[abilityIndex]);
+        }
+        playerHandler.UpdateCanvas();
     }
 }

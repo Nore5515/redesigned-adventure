@@ -7,9 +7,11 @@
         
         public int hp = 8;
         public int maxHp = 8;
+        public int hpRegen = 0;
         
         public int mp = 12;
         public int maxMp = 12;
+        public int mpRegen = 1;
 
         public int xp = 0;
         public int maxXp = 100;

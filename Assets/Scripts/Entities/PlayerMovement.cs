@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
+using Entities;
 using Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, Entity
 {
     [SerializeField] private CharacterController controller;
 
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject auraExplosionPrefab;
     
     [SerializeField] private SwordPicHandler swordPicHandler;
+
+    [SerializeField] public GameObject forwardAnchor;
     
     private BanjoNoteHandler banjoNoteHandler;
     private GameObject banjoImage;
@@ -29,7 +32,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    private float dist = -25.0f;
     public float swordRange = 5.0f;
+    public int swordDamage = 1;
     public float gravity = -9.81f;
     public float groundDistance = 0.4f;
     public float jumpHeight = 3.0f;
@@ -74,13 +79,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private float dist = -25.0f;
+    #region Entity Functions
+    public void DealDamage(int dmg)
+    {
+        playerHandler.DealDamage(dmg);
+    }
+
+    public int GetHP()
+    {
+        return playerHandler.playerStats.hp;
+    }
+
+    public int GetXPReward()
+    {
+        return playerHandler.playerStats.level * 100;
+    }
     
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    #endregion
     // Update is called once per frame
     void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.Minus))
         {
             dist -= 10.0f;
@@ -231,6 +254,8 @@ public class PlayerMovement : MonoBehaviour
             ClearNotes();
         }
     }
+    
+    
 
     void SwordSwing()
     {
@@ -238,9 +263,12 @@ public class PlayerMovement : MonoBehaviour
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitSword, swordRange, targetMask);
         if (hitSword.collider != null)
         {
-            Debug.Log(hitSword.collider.gameObject.name);
-            hitSword.collider.gameObject.GetComponent<EnemyInstance>().Die();
-            playerHandler.AddXp(30);
+            Entity entity = hitSword.collider.gameObject.GetComponent<Entity>();
+            if (entity.GetHP() - swordDamage <= 0)
+            {
+                playerHandler.AddXp(entity.GetXPReward());
+            }
+            hitSword.collider.gameObject.GetComponent<Entity>().DealDamage(swordDamage);
         }
     }
 
@@ -304,4 +332,5 @@ public class PlayerMovement : MonoBehaviour
 
         return note;
     }
+    
 }
