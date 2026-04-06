@@ -68,7 +68,7 @@ namespace Abilities
                         Entity hitEntity = hit.collider.GetComponent<Entity>();
                         if (hitEntity != caster)
                         {
-                            hitEntity.DealDamage(dmg);
+                            hitEntity.DealDamage(dmg, caster);
                         }
                     }
                 }

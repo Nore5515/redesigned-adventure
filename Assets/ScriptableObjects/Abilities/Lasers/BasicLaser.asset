@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4008b802674f4a5bb9ea7404f520f251, type: 3}
   m_Name: BasicLaser
   m_EditorClassIdentifier: Assembly-CSharp::AbilitySO
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: e8a857d00ab859a45b5864ab9107d451, type: 3}
   name: Basic Laser
   description: Fire a piercing laser wherever you're looking!
   manaCost: 2

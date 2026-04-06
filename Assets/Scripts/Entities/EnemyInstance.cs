@@ -153,11 +153,12 @@ public class EnemyInstance : MonoBehaviour, Entity
 
     #region Entity Functions
     
-    public void DealDamage(int damage)
+    public void DealDamage(int damage, Entity source)
     {
         m_HP -= damage;
         if (m_HP <= 0)
         {
+            source.AddXP(GetXPReward());
             Die();
         }
     }
@@ -170,6 +171,11 @@ public class EnemyInstance : MonoBehaviour, Entity
     public int GetXPReward()
     {
         return xpReward;
+    }
+
+    public void AddXP(int xp)
+    {
+        Debug.Log("Enemy got XP LOL");
     }
 
     public GameObject GetGameObject()

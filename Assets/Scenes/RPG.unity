@@ -1688,6 +1688,7 @@ MonoBehaviour:
   allAbilityList:
   - {fileID: 11400000, guid: fe1b013930ea74e40bd86dbba49d9e1b, type: 2}
   - {fileID: 11400000, guid: 0d77442bca6dce94e98e74142e5cb1d5, type: 2}
+  - {fileID: 11400000, guid: d741c4b4c277d794980fe712309f9264, type: 2}
   playerHandler: {fileID: 1189817801}
 --- !u!1001 &1756707569
 PrefabInstance:

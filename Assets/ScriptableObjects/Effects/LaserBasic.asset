@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Abilities.FireLaser
   widthStart: 0.2
   widthEnd: 1
-  colorStart: {r: 0.9811321, g: 0.2252283, b: 0.2252283, a: 0}
+  colorStart: {r: 0.22523175, g: 0.059748232, b: 1, a: 0}
   colorEnd: {r: 0.11006278, g: 0.33472064, b: 1, a: 0}
   dmg: 4
   material: {fileID: 2100000, guid: e669741bdcde0dd4196ae1b3f458a55d, type: 2}

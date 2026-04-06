@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d3ec6a611344ed89c4f5c612ebc0558, type: 3}
-  m_Name: LaserHeavy
+  m_Name: LaserBlood
   m_EditorClassIdentifier: Assembly-CSharp::Abilities.FireLaser
-  widthStart: 1
-  widthEnd: 3
-  colorStart: {r: 0.050769284, g: 0.8097181, b: 0.9496855, a: 0}
-  colorEnd: {r: 0.088762216, g: 0.7397334, b: 0.8553459, a: 0}
-  dmg: 10
+  widthStart: 0.4
+  widthEnd: 0.8
+  colorStart: {r: 0.9811321, g: 0.2252283, b: 0.2252283, a: 0}
+  colorEnd: {r: 1, g: 0, b: 0.08326101, a: 0}
+  dmg: 7
   material: {fileID: 2100000, guid: e669741bdcde0dd4196ae1b3f458a55d, type: 2}

@@ -80,9 +80,13 @@ public class PlayerMovement : MonoBehaviour, Entity
     }
 
     #region Entity Functions
-    public void DealDamage(int dmg)
+    public void DealDamage(int dmg, Entity source)
     {
         playerHandler.DealDamage(dmg);
+        if (playerHandler.playerStats.hp <= 0)
+        {
+            source.AddXP(GetXPReward());
+        }
     }
 
     public int GetHP()
@@ -94,7 +98,12 @@ public class PlayerMovement : MonoBehaviour, Entity
     {
         return playerHandler.playerStats.level * 100;
     }
-    
+
+    public void AddXP(int xp)
+    {
+        playerHandler.AddXp(xp);
+    }
+
     public GameObject GetGameObject()
     {
         return gameObject;
@@ -264,11 +273,7 @@ public class PlayerMovement : MonoBehaviour, Entity
         if (hitSword.collider != null)
         {
             Entity entity = hitSword.collider.gameObject.GetComponent<Entity>();
-            if (entity.GetHP() - swordDamage <= 0)
-            {
-                playerHandler.AddXp(entity.GetXPReward());
-            }
-            hitSword.collider.gameObject.GetComponent<Entity>().DealDamage(swordDamage);
+            hitSword.collider.gameObject.GetComponent<Entity>().DealDamage(swordDamage, this);
         }
     }
 
