@@ -14,8 +14,8 @@ public class MeleeRadius : MonoBehaviour
     {
         if (other.gameObject.name == "FirstPersonPlayer")
         {
-            Debug.Log("Player Meleed!");
-            enemyInstance.FlingAwayFromPoint(other.transform.position);
+            enemyInstance.FlingAwayFromPoint(other.transform.position, 30.0f);
+            enemyInstance.StruckPlayer();
         }
     }
 }

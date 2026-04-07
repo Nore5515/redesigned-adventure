@@ -9,7 +9,7 @@ public class EnemySO : ScriptableObject
     [Range(0.0f, 30.0f)] public float m_Speed;
     [Range(0.0f, 30.0f)] public float m_Acceleration;
 
-    [SerializeField] public float m_playerKnockback;
+    // [SerializeField] public float m_playerKnockback;
     
     [SerializeField] public int m_HP;
     [SerializeField] public int m_Dmg;

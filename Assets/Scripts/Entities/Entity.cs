@@ -6,6 +6,7 @@ namespace Entities
     {
         // TO THE ENTITY. GOD!!
         public void DealDamage(int damage, Entity source);
+        public void DealKnockback(float knockback, Entity source);
         public int GetHP();
 
         public int GetXPReward();

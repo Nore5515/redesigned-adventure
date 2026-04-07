@@ -111,16 +111,20 @@ public class EnemyInstance : MonoBehaviour, Entity
         }
     }
 
-    public void FlingAwayFromPoint(Vector3 point)
+    public void StruckPlayer()
+    {
+        playerHandler.DealDamage(enemySO.m_Dmg);
+    }
+
+    public void FlingAwayFromPoint(Vector3 point, float kbForce)
     {
         if (!knockbacked)
         {
             EnableRigidbody(true);
             Vector3 direction = (transform.position - point).normalized;
-            rb.AddForce(direction * enemySO.m_playerKnockback, ForceMode.Impulse);
+            rb.AddForce(direction * kbForce, ForceMode.Impulse);
             knockbacked = true;
             StartCoroutine(KnockbackCountdown(3.0f));
-            playerHandler.DealDamage(enemySO.m_Dmg);
         }
     }
 
@@ -161,6 +165,11 @@ public class EnemyInstance : MonoBehaviour, Entity
             source.AddXP(GetXPReward());
             Die();
         }
+    }
+
+    public void DealKnockback(float knockback, Entity source)
+    {
+        FlingAwayFromPoint(source.GetGameObject().transform.position, knockback);
     }
 
     public int GetHP()

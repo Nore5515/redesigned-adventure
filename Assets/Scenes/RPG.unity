@@ -1686,9 +1686,9 @@ MonoBehaviour:
   - {fileID: 187094568}
   - {fileID: 655725546}
   allAbilityList:
-  - {fileID: 11400000, guid: fe1b013930ea74e40bd86dbba49d9e1b, type: 2}
-  - {fileID: 11400000, guid: 0d77442bca6dce94e98e74142e5cb1d5, type: 2}
-  - {fileID: 11400000, guid: d741c4b4c277d794980fe712309f9264, type: 2}
+  - {fileID: 11400000, guid: ecf6521c6807f55468a797e8f5087880, type: 2}
+  - {fileID: 11400000, guid: 3d40631f6f22f5346b993aeb27ede4d0, type: 2}
+  - {fileID: 11400000, guid: 3d40631f6f22f5346b993aeb27ede4d0, type: 2}
   playerHandler: {fileID: 1189817801}
 --- !u!1001 &1756707569
 PrefabInstance:

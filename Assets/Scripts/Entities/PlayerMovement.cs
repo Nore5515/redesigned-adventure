@@ -3,6 +3,7 @@ using System.Linq;
 using Entities;
 using Interfaces;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour, Entity
     private BanjoNoteHandler banjoNoteHandler;
     private GameObject banjoImage;
     [SerializeField]
-    private PlayerHandler playerHandler;
+    public PlayerHandler playerHandler;
     
     private Vector3 velocity;
     private bool isGrounded;
@@ -87,6 +88,11 @@ public class PlayerMovement : MonoBehaviour, Entity
         {
             source.AddXP(GetXPReward());
         }
+    }
+
+    public void DealKnockback(float knockback, Entity source)
+    {
+        Debug.Log("No knockback for player!");
     }
 
     public int GetHP()
