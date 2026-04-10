@@ -26,7 +26,6 @@ namespace Abilities
                 {
                     effect.Apply(caster, new []{hit.GetComponent<Entity>()});
                 }
-                hit.GetComponent<Entity>().DealDamage(dmg, caster);
             }        
         }
     }

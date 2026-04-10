@@ -24,7 +24,7 @@ public class EnemyInstance : MonoBehaviour, Entity
 
     public bool isWatched = false;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     private bool knockbacked = false;
     
@@ -120,19 +120,38 @@ public class EnemyInstance : MonoBehaviour, Entity
     {
         if (!knockbacked)
         {
-            EnableRigidbody(true);
+            Ragdoll();
             Vector3 direction = (transform.position - point).normalized;
             rb.AddForce(direction * kbForce, ForceMode.Impulse);
-            knockbacked = true;
-            StartCoroutine(KnockbackCountdown(3.0f));
         }
     }
 
-    IEnumerator KnockbackCountdown(float time)
+    public void Ragdoll()
+    {
+        EnableRigidbody(true);
+        StartCoroutine(KnockbackCountdown(3.0f));
+        knockbacked = true;
+    }
+
+    IEnumerator KnockbackCountdown(float time, int retries = 10)
     {
         yield return new WaitForSeconds(time);
-        knockbacked = false;
-        EnableRigidbody(false);
+        if (retries <= 0)
+        {
+            Die();
+        }
+        // See if on the ground! Check the global direction down though, not the local
+        // direction down.
+        if (Physics.Raycast(transform.position, Vector3.down, Mathf.Max(enemySO.localScale.x, enemySO.localScale.y)))
+        {
+            Debug.Log("Grounded!");
+            knockbacked = false;
+            EnableRigidbody(false);
+        }
+        else
+        {
+            StartCoroutine(KnockbackCountdown(1.0f, retries-1));
+        }
     }
 
     void EnableRigidbody(bool enable)

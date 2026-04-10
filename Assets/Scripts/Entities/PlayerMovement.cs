@@ -184,6 +184,11 @@ public class PlayerMovement : MonoBehaviour, Entity
             // Camera.main.fieldOfView = 
         }
 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AddXP(100);
+        }
+
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             banjoImage.SetActive(false);
