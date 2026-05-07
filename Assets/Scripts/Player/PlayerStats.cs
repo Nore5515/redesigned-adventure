@@ -1,4 +1,6 @@
-﻿namespace Player
+﻿using System.Collections.Generic;
+
+namespace Player
 {
     using UnityEngine;
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "Scriptable Objects/PlayerStats")]
@@ -21,5 +23,9 @@
 
         public float speedMod = 1.0f;
         public float jumpMod = 1.0f;
+
+        public int cash = 0;
+
+        public List<Equipment.Equipment> inventory = new();
     }
 }

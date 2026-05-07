@@ -55,6 +55,9 @@ public class PlayerMovement : MonoBehaviour, Entity
 
     private bool isSlowMo = false;
     
+    public ShopPanelUI shopPanel;
+    public InvPanelUI invPanel;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -151,6 +154,30 @@ public class PlayerMovement : MonoBehaviour, Entity
                     interactable.Interact(this);
                 }
             }   
+        }
+        
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            if (shopPanel.gameObject.activeSelf == false)
+            {
+                Debug.Log("Opening shop");
+                shopPanel.OpenShop();
+            }
+            else
+            {
+                Debug.Log("Closing shop");
+                shopPanel.CloseShop();
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            invPanel.OpenInv();
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            invPanel.CloseInv();
         }
         
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);

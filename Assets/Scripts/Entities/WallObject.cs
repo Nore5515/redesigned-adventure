@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WallObject : MonoBehaviour, Entity
@@ -7,10 +9,13 @@ public class WallObject : MonoBehaviour, Entity
     [SerializeField] private List<GameObject> wallParts;
     public int hp;
     [SerializeField] BoxCollider wallCollider;
+    public float lifetime;
 
-    public void Init(int hp, Material material, bool passThrough)
+    public void Init(int hp, Material material, bool passThrough, float lifetime)
     {
         this.hp = hp;
+        this.lifetime = lifetime;
+        StartCoroutine(DestroyAfterTime());
         foreach (var wallPart in wallParts)
         {
             wallPart.GetComponent<MeshRenderer>().material = material;
@@ -20,6 +25,12 @@ public class WallObject : MonoBehaviour, Entity
         {
             wallCollider.isTrigger = true;
         }
+    }
+
+    IEnumerator DestroyAfterTime()
+    {
+        yield return new WaitForSeconds(lifetime);
+        Destroy(gameObject);   
     }
 
     public void DealDamage(int damage, Entity source)

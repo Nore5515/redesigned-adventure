@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NPCs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class DialogueBox : MonoBehaviour
 {
     private TextMeshProUGUI text;
 
-    private List<string> lines = new();
+    private List<DialogueLine> lines = new();
     private int currentIndex = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,13 +20,13 @@ public class DialogueBox : MonoBehaviour
         text.enabled = false;
     }
 
-    public void LoadLines(List<string> _lines)
+    public void LoadLines(List<DialogueLine> _lines)
     {
         currentIndex = 0;
         GetComponent<Image>().enabled = true;
         text.enabled = true;
         lines = _lines;
-        text.text = lines[currentIndex];
+        text.text = lines[currentIndex].text;
     }
 
     public void LoadNextLine()
@@ -38,7 +39,7 @@ public class DialogueBox : MonoBehaviour
         }
         else
         {
-            text.text = lines[currentIndex];
+            text.text = lines[currentIndex].text;
         }
     }
 
