@@ -28,8 +28,13 @@ public class InvPanelUI : MonoBehaviour
         button.GetComponent<InvItem>().Init(equipment);
     }
 
-    public void SetSelectedItem(Equipment.Equipment equipment)
+    public void EquipSelectedItem(Equipment.Equipment equipment)
     {
+        // Remove item from bodypart first
+        if (bodyPartHandler.GetEquipment(equipment.slot) != null)
+        {
+            AddItem(bodyPartHandler.RemoveEquipment(equipment.slot));
+        }
         title.text = equipment.name;
         desc.text = equipment.description;
         bodyPartHandler.AddNewEquipment(equipment);

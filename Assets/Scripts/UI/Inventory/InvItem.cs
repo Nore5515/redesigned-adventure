@@ -25,14 +25,14 @@ public class InvItem : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("Click!");
-        Debug.Log(equipment.name);
-        invPanel.SetSelectedItem(equipment);
+        invPanel.EquipSelectedItem(equipment);
+        Destroy(gameObject);
     }
 
     void UpdateToEquipment()
     {
         itemIcon.sprite = equipment.icon;
+        GetComponent<Button>().onClick.RemoveAllListeners();
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 

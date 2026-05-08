@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Equipment;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,47 +13,91 @@ public class BodyPartHandler : MonoBehaviour
     [SerializeField] private Image legs;
     [SerializeField] private Image feet;
     [SerializeField] private Image hands;
-
-    private Equipment.Equipment helmet;
-    private Equipment.Equipment shirt;
-    private Equipment.Equipment pants;
-    private Equipment.Equipment boots;
-    private Equipment.Equipment gloves;
+    
+    private Dictionary<ArmorSlot, Image> equipmentImages = new();
+    public Dictionary<ArmorSlot, Equipment.Equipment> equipmentDict = new(); // <slot, equipment>
 
     [SerializeField] private Sprite empty;
 
 
+    private void Start()
+    {
+        equipmentDict.Add(ArmorSlot.HEAD, null);
+        equipmentDict.Add(ArmorSlot.BODY, null);
+        equipmentDict.Add(ArmorSlot.LEGS, null);
+        equipmentDict.Add(ArmorSlot.FEET, null);
+        equipmentDict.Add(ArmorSlot.HANDS, null);   
+        
+        equipmentImages.Add(ArmorSlot.HEAD, head);
+        equipmentImages.Add(ArmorSlot.BODY, body);
+        equipmentImages.Add(ArmorSlot.LEGS, legs);
+        equipmentImages.Add(ArmorSlot.FEET, feet);
+        equipmentImages.Add(ArmorSlot.HANDS, hands);
+    }
+
+    // TODO: not happy with this but ArmorSlot enum not appearing in inspector
+    public void ClickEquipment(string stringSlot)
+    {
+        if (stringSlot == "head")
+        {
+            ClickEquipment(ArmorSlot.HEAD);
+        }
+        else if (stringSlot == "shirt")
+        {
+            ClickEquipment(ArmorSlot.BODY);
+        }
+        else if (stringSlot == "pants")
+        {
+            ClickEquipment(ArmorSlot.LEGS);
+        }
+        else if (stringSlot == "boots")
+        {
+            ClickEquipment(ArmorSlot.FEET);
+        }
+        else if (stringSlot == "hands")
+        {
+            ClickEquipment(ArmorSlot.HANDS);
+        }
+    }
+
+    private void ClickEquipment(ArmorSlot slot)
+    {
+        Debug.Log(slot);
+    }
+
+    [CanBeNull]
+    public Equipment.Equipment GetEquipment(ArmorSlot slot)
+    {
+        return equipmentDict[slot];
+    }
+
+    [CanBeNull]
+    public Equipment.Equipment RemoveEquipment(ArmorSlot slot)
+    {
+        if (equipmentDict[slot] is null) return null;
+        Equipment.Equipment temp = equipmentDict[slot];
+        equipmentDict[slot] = null;
+        return temp;
+    }
+    
     public void AddNewEquipment(Equipment.Equipment equipment)
     {
-        if (equipment.slot == ArmorSlot.HEAD)
-        {
-            helmet = equipment;
-        }
-        else if (equipment.slot == ArmorSlot.BODY)
-        {
-            shirt = equipment;
-        }
-        else if (equipment.slot == ArmorSlot.LEGS)
-        {
-            pants = equipment;
-        }
-        else if (equipment.slot == ArmorSlot.FEET)
-        {
-            boots = equipment;
-        }
-        else if (equipment.slot == ArmorSlot.HANDS)
-        {
-            gloves = equipment;
-        }
+        equipmentDict[equipment.slot] = equipment;
         UpdateVisuals();
     }
 
     void UpdateVisuals()
     {
-        head.sprite = helmet?.icon ?? empty;
-        body.sprite = shirt?.icon ?? empty;
-        legs.sprite = pants?.icon ?? empty;
-        feet.sprite = boots?.icon ?? empty;
-        hands.sprite = gloves?.icon ?? empty;
+        foreach (KeyValuePair<ArmorSlot, Equipment.Equipment> kvp in equipmentDict)
+        {
+            if (kvp.Value is null)
+            {
+                equipmentImages[kvp.Key].sprite = empty;
+            }
+            else
+            {
+                equipmentImages[kvp.Key].sprite = kvp.Value.icon;
+            }
+        }
     }
 }
