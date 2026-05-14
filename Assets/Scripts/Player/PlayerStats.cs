@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EquipmentNamespace;
 
 namespace Player
 {
@@ -26,6 +27,6 @@ namespace Player
 
         public int cash = 0;
 
-        public List<Equipment.Equipment> inventory = new();
+        public List<Equipment> inventory = new();
     }
 }

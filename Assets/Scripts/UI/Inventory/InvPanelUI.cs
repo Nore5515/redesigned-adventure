@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using EquipmentNamespace;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
 
@@ -9,7 +11,7 @@ public class InvPanelUI : MonoBehaviour
     [SerializeField] private GameObject invGrid;
     [SerializeField] private GameObject invButton;
 
-    [SerializeField] private List<Equipment.Equipment> testEquip;
+    [SerializeField] private List<EquipmentNamespace.Equipment> testEquip;
 
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI desc;
@@ -22,13 +24,13 @@ public class InvPanelUI : MonoBehaviour
         CloseInv();
     }
 
-    public void AddItem(Equipment.Equipment equipment)
+    public void AddItem(Equipment equipment)
     {
         GameObject button = Instantiate(invButton, invGrid.transform);
         button.GetComponent<InvItem>().Init(equipment);
     }
 
-    public void EquipSelectedItem(Equipment.Equipment equipment)
+    public void EquipSelectedItem(Equipment equipment)
     {
         // Remove item from bodypart first
         if (bodyPartHandler.GetEquipment(equipment.slot) != null)
@@ -58,6 +60,25 @@ public class InvPanelUI : MonoBehaviour
     {
         Pause();
         gameObject.SetActive(true);
+        UpdateFromInv();
+    }
+
+    void UpdateFromInv()
+    {
+        ClearInv();
+        PlayerHandler ph = GameObject.FindGameObjectWithTag("player_handler").GetComponent<PlayerHandler>();
+        foreach (var item in ph.playerStats.inventory)
+        {
+            AddItem(item);
+        }
+    }
+
+    void ClearInv()
+    {
+        foreach (Transform child in invGrid.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
     
     public void Pause()

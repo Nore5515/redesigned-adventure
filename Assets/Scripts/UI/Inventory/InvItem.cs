@@ -5,7 +5,7 @@ public class InvItem : MonoBehaviour
 {
     
     [SerializeField]
-    public Equipment.Equipment equipment;
+    public EquipmentNamespace.Equipment equipment;
 
     [SerializeField] private Image itemIcon;
     private InvPanelUI invPanel;
@@ -17,7 +17,7 @@ public class InvItem : MonoBehaviour
         invPanel = GetComponentInParent<InvPanelUI>();
     }
 
-    public void Init(Equipment.Equipment equipment)
+    public void Init(EquipmentNamespace.Equipment equipment)
     {
         this.equipment = equipment;
         UpdateToEquipment();

@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   image: {fileID: 8150893026280586780}
+  soldOutIcon: {fileID: 21300000, guid: 32059238bf43e8146b260fbaa6bfb194, type: 3}
   equipment: {fileID: 11400000, guid: 3a8c030fedb40d44e9a0184346a75b38, type: 2}
 --- !u!1 &2519617921739494661
 GameObject:

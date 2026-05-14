@@ -1,4 +1,4 @@
-﻿namespace Equipment
+﻿namespace EquipmentNamespace
 {
     public enum ArmorSlot
     {

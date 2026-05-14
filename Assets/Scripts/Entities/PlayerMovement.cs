@@ -170,7 +170,7 @@ public class PlayerMovement : MonoBehaviour, Entity
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             invPanel.OpenInv();
         }

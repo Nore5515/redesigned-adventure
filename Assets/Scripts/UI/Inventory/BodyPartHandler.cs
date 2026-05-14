@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Equipment;
+using EquipmentNamespace;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
@@ -15,7 +15,7 @@ public class BodyPartHandler : MonoBehaviour
     [SerializeField] private Image hands;
     
     private Dictionary<ArmorSlot, Image> equipmentImages = new();
-    public Dictionary<ArmorSlot, Equipment.Equipment> equipmentDict = new(); // <slot, equipment>
+    public Dictionary<ArmorSlot, Equipment> equipmentDict = new(); // <slot, equipment>
 
     [SerializeField] private Sprite empty;
 
@@ -66,21 +66,21 @@ public class BodyPartHandler : MonoBehaviour
     }
 
     [CanBeNull]
-    public Equipment.Equipment GetEquipment(ArmorSlot slot)
+    public Equipment GetEquipment(ArmorSlot slot)
     {
         return equipmentDict[slot];
     }
 
     [CanBeNull]
-    public Equipment.Equipment RemoveEquipment(ArmorSlot slot)
+    public EquipmentNamespace.Equipment RemoveEquipment(ArmorSlot slot)
     {
         if (equipmentDict[slot] is null) return null;
-        Equipment.Equipment temp = equipmentDict[slot];
+        Equipment temp = equipmentDict[slot];
         equipmentDict[slot] = null;
         return temp;
     }
     
-    public void AddNewEquipment(Equipment.Equipment equipment)
+    public void AddNewEquipment(Equipment equipment)
     {
         equipmentDict[equipment.slot] = equipment;
         UpdateVisuals();
@@ -88,7 +88,7 @@ public class BodyPartHandler : MonoBehaviour
 
     void UpdateVisuals()
     {
-        foreach (KeyValuePair<ArmorSlot, Equipment.Equipment> kvp in equipmentDict)
+        foreach (KeyValuePair<ArmorSlot, Equipment> kvp in equipmentDict)
         {
             if (kvp.Value is null)
             {
