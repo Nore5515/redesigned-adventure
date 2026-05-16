@@ -28,5 +28,13 @@ namespace Player
         public int cash = 0;
 
         public List<Equipment> inventory = new();
+        public Dictionary<ArmorSlot, Equipment> equippedItems = new()
+        {
+            { ArmorSlot.HEAD, null},
+            { ArmorSlot.BODY, null},
+            { ArmorSlot.LEGS, null},
+            { ArmorSlot.FEET, null}, 
+            {ArmorSlot.HANDS, null}
+        }; // <slot, equipment>
     }
 }

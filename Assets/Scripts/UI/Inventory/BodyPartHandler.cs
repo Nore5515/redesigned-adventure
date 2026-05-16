@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using EquipmentNamespace;
 using JetBrains.Annotations;
+using Player;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,14 @@ public class BodyPartHandler : MonoBehaviour
         equipmentImages.Add(ArmorSlot.LEGS, legs);
         equipmentImages.Add(ArmorSlot.FEET, feet);
         equipmentImages.Add(ArmorSlot.HANDS, hands);
+    }
+
+    public void UpdateFromInventory(PlayerStats playerStats)
+    {
+        foreach (var kvp in playerStats.equippedItems)
+        {
+            SetEquipment(kvp.Value);
+        }
     }
 
     // TODO: not happy with this but ArmorSlot enum not appearing in inspector
@@ -72,15 +81,16 @@ public class BodyPartHandler : MonoBehaviour
     }
 
     [CanBeNull]
-    public EquipmentNamespace.Equipment RemoveEquipment(ArmorSlot slot)
+    public Equipment RemoveEquipment(ArmorSlot slot, PlayerStats playerStats)
     {
         if (equipmentDict[slot] is null) return null;
+        playerStats.equippedItems[slot] = null;
         Equipment temp = equipmentDict[slot];
         equipmentDict[slot] = null;
         return temp;
     }
     
-    public void AddNewEquipment(Equipment equipment)
+    public void SetEquipment(Equipment equipment)
     {
         equipmentDict[equipment.slot] = equipment;
         UpdateVisuals();

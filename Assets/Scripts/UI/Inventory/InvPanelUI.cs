@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using EquipmentNamespace;
+using Handler;
+using Player;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,7 +18,7 @@ public class InvPanelUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI desc;
     
-    [SerializeField] private BodyPartHandler bodyPartHandler;
+    [SerializeField] private InventoryHandler inventoryHandler;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +26,7 @@ public class InvPanelUI : MonoBehaviour
         CloseInv();
     }
 
-    public void AddItem(Equipment equipment)
+    public void AddItemButton(Equipment equipment)
     {
         GameObject button = Instantiate(invButton, invGrid.transform);
         button.GetComponent<InvItem>().Init(equipment);
@@ -32,21 +34,16 @@ public class InvPanelUI : MonoBehaviour
 
     public void EquipSelectedItem(Equipment equipment)
     {
-        // Remove item from bodypart first
-        if (bodyPartHandler.GetEquipment(equipment.slot) != null)
-        {
-            AddItem(bodyPartHandler.RemoveEquipment(equipment.slot));
-        }
         title.text = equipment.name;
         desc.text = equipment.description;
-        bodyPartHandler.AddNewEquipment(equipment);
+        inventoryHandler.EquipItem(equipment);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightBracket))
         {
-            AddItem(testEquip[new Random().Next(0, testEquip.Count)]);
+            AddItemButton(testEquip[new Random().Next(0, testEquip.Count)]);
         }
     }
 
@@ -66,13 +63,13 @@ public class InvPanelUI : MonoBehaviour
     void UpdateFromInv()
     {
         ClearInv();
-        PlayerHandler ph = GameObject.FindGameObjectWithTag("player_handler").GetComponent<PlayerHandler>();
-        foreach (var item in ph.playerStats.inventory)
+        List<Equipment> equippedItems = inventoryHandler.GetInventory();
+        foreach (var item in equippedItems)
         {
-            AddItem(item);
+            AddItemButton(item);
         }
     }
-
+    
     void ClearInv()
     {
         foreach (Transform child in invGrid.transform)
