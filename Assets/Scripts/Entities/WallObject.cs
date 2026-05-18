@@ -38,7 +38,7 @@ public class WallObject : MonoBehaviour, Entity
         hp -= damage;
         if (hp <= 0)
         {
-            source.AddXP(GetXPReward());
+            source.KillReward(GetXPReward(), GetCashReward());
             Destroy(gameObject);
         }       
     }
@@ -58,7 +58,12 @@ public class WallObject : MonoBehaviour, Entity
         return 10;
     }
 
-    public void AddXP(int xp)
+    public int GetCashReward()
+    {
+        return 10;
+    }
+
+    public void KillReward(int xp, int cash)
     {
         throw new System.NotImplementedException();
     }

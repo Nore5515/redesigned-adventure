@@ -10,7 +10,9 @@ namespace Entities
         public int GetHP();
 
         public int GetXPReward();
-        public void AddXP(int xp);
+        public int GetCashReward();
+        // When this entity gets a kill, it  gets these as rewards
+        public void KillReward(int xp, int cash);
         
         public GameObject GetGameObject();
     }

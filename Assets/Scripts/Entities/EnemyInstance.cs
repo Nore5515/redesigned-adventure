@@ -17,6 +17,7 @@ public class EnemyInstance : MonoBehaviour, Entity
     private float m_Acceleration;
     private int m_HP;
     private int xpReward;
+    private int cashReward;
 
     private NavMeshAgent agent;
 
@@ -36,6 +37,7 @@ public class EnemyInstance : MonoBehaviour, Entity
         m_Acceleration = enemySO.m_Acceleration;
         m_HP = enemySO.m_HP;
         xpReward = enemySO.xpReward;
+        cashReward = enemySO.cashReward;
         
         // Mesh Scaling
         meshObj.GetComponent<Renderer>().material.color = enemySO.color;
@@ -181,7 +183,7 @@ public class EnemyInstance : MonoBehaviour, Entity
         m_HP -= damage;
         if (m_HP <= 0)
         {
-            source.AddXP(GetXPReward());
+            source.KillReward(GetXPReward(), GetCashReward());
             Die();
         }
     }
@@ -201,10 +203,17 @@ public class EnemyInstance : MonoBehaviour, Entity
         return xpReward;
     }
 
-    public void AddXP(int xp)
+    public int GetCashReward()
     {
-        Debug.Log("Enemy got XP LOL");
+        return cashReward;
     }
+    
+    public void KillReward(int xp, int cash)
+    {
+        Debug.Log("ENEMY GOT A KILL LOL!");
+        throw new NotImplementedException();
+    }
+    
 
     public GameObject GetGameObject()
     {

@@ -19,4 +19,5 @@ public class EnemySO : ScriptableObject
     [SerializeField] public bool weeping = false;
 
     [SerializeField] public int xpReward = 30;
+    [SerializeField] public int cashReward = 50;
 }

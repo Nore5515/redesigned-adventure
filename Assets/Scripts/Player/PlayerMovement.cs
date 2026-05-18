@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour, Entity
         playerHandler.DealDamage(dmg);
         if (playerHandler.playerStats.hp <= 0)
         {
-            source.AddXP(GetXPReward());
+            source.KillReward(GetXPReward(), GetCashReward());
         }
     }
 
@@ -108,9 +108,17 @@ public class PlayerMovement : MonoBehaviour, Entity
         return playerHandler.playerStats.level * 100;
     }
 
-    public void AddXP(int xp)
+    public int GetCashReward()
+    {
+        // TODO: LOL
+        return 10;
+    }
+
+    // Entities call this when slain
+    public void KillReward(int xp, int cash)
     {
         playerHandler.AddXp(xp);
+        playerHandler.playerStats.cash += cash;
     }
 
     public GameObject GetGameObject()
@@ -172,12 +180,14 @@ public class PlayerMovement : MonoBehaviour, Entity
         
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            invPanel.OpenInv();
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            invPanel.CloseInv();
+            if (invPanel.gameObject.activeSelf == false)
+            {
+                invPanel.OpenInv();
+            }
+            else
+            {
+                invPanel.CloseInv();
+            }
         }
         
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -213,7 +223,7 @@ public class PlayerMovement : MonoBehaviour, Entity
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            AddXP(100);
+            KillReward(100, 10);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))

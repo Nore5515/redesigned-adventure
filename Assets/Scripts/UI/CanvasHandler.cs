@@ -17,12 +17,15 @@ public class CanvasHandler : MonoBehaviour
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TextMeshProUGUI xpText;
 
+    [SerializeField] private TextMeshProUGUI cashText;
 
+    
     public void UpdateAll(PlayerStats playerStats)
     {
         UpdateHP(playerStats.hp, playerStats.maxHp);
         UpdateMP(playerStats.mp, playerStats.maxMp);
         UpdateXP(playerStats.xp, playerStats.maxXp);
+        UpdateCash(playerStats.cash);
         UpdateLevel(playerStats.level);
     }
     
@@ -31,6 +34,11 @@ public class CanvasHandler : MonoBehaviour
         hpSlider.maxValue = maxHP;
         hpSlider.value = hp;
         hpText.text = hp.ToString() + "/" + maxHP.ToString();
+    }
+
+    public void UpdateCash(int cash)
+    {
+        cashText.text = "$" + cash.ToString();
     }
     
     public void UpdateMP(int mp, int maxMP)
