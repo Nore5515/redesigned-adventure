@@ -15,7 +15,7 @@ namespace Abilities
         IEnumerator WallDespawn()
         {
             yield return new WaitForSeconds(duration);
-            Destroy(wallPrefab);       
+            Destroy(this);       
         }
         
         public override void Apply(Entity caster, Entity[] targets)

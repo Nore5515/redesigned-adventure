@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b8f0fc8c5c4144f854aefb420643aa, type: 3}
   m_Name: HelmetTest
   m_EditorClassIdentifier: Assembly-CSharp::Equipment.Equipment
+  passives: []
   slot: 0
-  currentSlot: 0
   icon: {fileID: 21300000, guid: 3210e2c6b8686594480a273fff89b90f, type: 3}
   name: Helmet of Testing
   description: This helmet was supposedly used by the gods when creating this world...to

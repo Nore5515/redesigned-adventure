@@ -1,10 +1,24 @@
-﻿namespace Passives
+﻿using System;
+using Unity.VisualScripting;
+using UnityEngine;
+
+namespace Passives
 {
-    public interface Trigger
+    [CreateAssetMenu(fileName = "Trigger", menuName = "Scriptable Objects/Trigger")]
+    [Serializable]
+    public class Trigger : ScriptableObject
     {
-        // What types...
+        public TriggerTypes type;
         
-        // TRIGGERED    
+        public TriggerTypes GetTriggerType()
+        {
+            return type;
+        }
+
+        // TODO: Enum these triggers!!!
+        // What types...
+
+        // TRIGGERED
         // On kill
         // On unit death (maybe not by you)
         // On damage (received)
@@ -12,7 +26,7 @@
         // On spell use
         // On jump
         // On landing
-        
+
         // NOT TRIGGERED
         // Always On
         // At max mana

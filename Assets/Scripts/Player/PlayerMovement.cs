@@ -178,6 +178,11 @@ public class PlayerMovement : MonoBehaviour, Entity
             }
         }
         
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            playerHandler.playerStats.cash += 9999;
+        }
+        
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (invPanel.gameObject.activeSelf == false)
@@ -202,7 +207,8 @@ public class PlayerMovement : MonoBehaviour, Entity
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move * (speed * Time.deltaTime));
+        float moveSpeed = playerHandler.playerStats.speed * playerHandler.playerStats.statMods.speedMultiplier;
+        controller.Move(move * (moveSpeed * Time.deltaTime));
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -218,7 +224,6 @@ public class PlayerMovement : MonoBehaviour, Entity
             SetSlowMotion(true);
             banjoImage.SetActive(true);
             Time.timeScale = 0.25f;
-            // Camera.main.fieldOfView = 
         }
 
         if (Input.GetKeyDown(KeyCode.L))

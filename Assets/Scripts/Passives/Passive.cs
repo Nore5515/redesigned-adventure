@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Abilities;
+using UnityEngine;
 
 namespace Passives
 {
-    public interface Passive
+    [CreateAssetMenu(menuName = "Scriptable Objects/Passive", fileName = "Passive")]
+    [Serializable]
+    public class Passive : ScriptableObject
     {
-
-        public List<Trigger> triggers { get; set; }
-        public List<Effect> effects { get; set; }
-        
+        public List<Trigger> triggers;
+        public List<Effect> effects;
     }
 }

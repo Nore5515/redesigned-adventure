@@ -28,10 +28,10 @@ public class AbilitySO : ScriptableObject
         if (!cooldownComplete && false) return false; 
         if (playerStats.hp >= hpCost && playerStats.mp >= manaCost)
         {
-            Debug.Log("Can afford: " + name);
+            // Debug.Log("Can afford: " + name);
             return true;
         }
-        Debug.Log("Can't SUCKA afford: " + name);
+        // Debug.Log("Can't SUCKA afford: " + name);
         return false;
     }
 

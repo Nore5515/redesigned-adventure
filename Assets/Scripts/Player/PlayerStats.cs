@@ -7,6 +7,10 @@ namespace Player
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "Scriptable Objects/PlayerStats")]
     public class PlayerStats : ScriptableObject
     {
+        public PlayerStatMods statMods = new();
+        
+        public int meleeDamage = 1;
+        public int meleePoison = 0;
         
         public int hp = 8;
         public int maxHp = 8;
@@ -22,10 +26,15 @@ namespace Player
 
         public float speed = 12.0f;
 
-        public float speedMod = 1.0f;
-        public float jumpMod = 1.0f;
-
+  
         public int cash = 0;
+        
+        public event System.Action EquipmentChangeEvent;
+
+        public void FireEquipmentChangeEvent()
+        {
+            EquipmentChangeEvent?.Invoke();
+        }
 
         public List<Equipment> inventory = new();
         public Dictionary<ArmorSlot, Equipment> equippedItems = new()

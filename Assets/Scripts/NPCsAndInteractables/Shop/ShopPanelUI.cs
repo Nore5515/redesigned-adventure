@@ -118,7 +118,7 @@ public class ShopPanelUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Neil is " + neilState + " and index is " + index);
+            // Debug.Log("Neil is " + neilState + " and index is " + index);
             countdown = neilFrameTime;
             index = (index + 1) % spriteCount;
         }

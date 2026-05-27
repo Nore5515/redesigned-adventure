@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using EquipmentNamespace;
 using JetBrains.Annotations;
 using Player;
@@ -13,6 +14,11 @@ namespace Handler
         
         [SerializeField] private InvPanelUI invPanelUI;
         [SerializeField] private BodyPartHandler bodyPartHandler;
+
+        public void AssignNewStats(PlayerStats _playerStats)
+        {
+            this.playerStats = _playerStats;
+        }
         
         public void AddItem(Equipment item)
         {
@@ -58,6 +64,9 @@ namespace Handler
             
             // Update BodyPartHandler
             bodyPartHandler.SetEquipment(equipment);
+
+            Debug.Log("Fire Equip Change Event");
+            playerStats.FireEquipmentChangeEvent();
         }
     }
 }

@@ -86,8 +86,8 @@ public class LevelUpPanel : MonoBehaviour
     void UpdateStats()
     {
         hpText.text = playerStats.hp + "/" + playerStats.maxHp;
-        speedText.text = playerStats.speedMod.ToString();
-        jumpText.text = playerStats.jumpMod.ToString();
+        speedText.text = playerStats.statMods.speedMultiplier.ToString();
+        jumpText.text = playerStats.statMods.jumpMultiplier.ToString();
     }
     
     public void Unpause()
