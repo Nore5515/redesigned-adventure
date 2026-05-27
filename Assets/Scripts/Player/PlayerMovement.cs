@@ -84,13 +84,18 @@ public class PlayerMovement : MonoBehaviour, Entity
     }
 
     #region Entity Functions
-    public void DealDamage(int dmg, Entity source)
+    public void ReceieveDamage(int dmg, Entity source)
     {
         playerHandler.DealDamage(dmg);
         if (playerHandler.playerStats.hp <= 0)
         {
-            source.KillReward(GetXPReward(), GetCashReward());
+            source.KillReward(GetXPReward(), GetCashReward(), GetScoreReward());
         }
+    }
+
+    public int GetScoreReward()
+    {
+        return 1000;
     }
 
     public void DealKnockback(float knockback, Entity source)
@@ -114,11 +119,12 @@ public class PlayerMovement : MonoBehaviour, Entity
         return 10;
     }
 
-    // Entities call this when slain
-    public void KillReward(int xp, int cash)
+    // Entities call this when slaying enemies
+    public void KillReward(int xp, int cash, int score)
     {
         playerHandler.AddXp(xp);
         playerHandler.playerStats.cash += cash;
+        playerHandler.playerStats.score += score;
     }
 
     public GameObject GetGameObject()
@@ -228,7 +234,7 @@ public class PlayerMovement : MonoBehaviour, Entity
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            KillReward(100, 10);
+            KillReward(100, 100, 100);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -326,7 +332,7 @@ public class PlayerMovement : MonoBehaviour, Entity
         if (hitSword.collider != null)
         {
             Entity entity = hitSword.collider.gameObject.GetComponent<Entity>();
-            hitSword.collider.gameObject.GetComponent<Entity>().DealDamage(swordDamage, this);
+            hitSword.collider.gameObject.GetComponent<Entity>().ReceieveDamage(swordDamage, this);
         }
     }
 

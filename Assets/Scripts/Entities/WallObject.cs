@@ -33,12 +33,12 @@ public class WallObject : MonoBehaviour, Entity
         Destroy(gameObject);   
     }
 
-    public void DealDamage(int damage, Entity source)
+    public void ReceieveDamage(int damage, Entity source)
     {
         hp -= damage;
         if (hp <= 0)
         {
-            source.KillReward(GetXPReward(), GetCashReward());
+            source.KillReward(GetXPReward(), GetCashReward(), GetScoreReward());
             Destroy(gameObject);
         }       
     }
@@ -63,11 +63,16 @@ public class WallObject : MonoBehaviour, Entity
         return 10;
     }
 
-    public void KillReward(int xp, int cash)
+    public int GetScoreReward()
+    {
+        return 10;
+    }
+
+    public void KillReward(int xp, int cash, int score)
     {
         throw new System.NotImplementedException();
     }
-
+    
     public GameObject GetGameObject()
     {
         return gameObject;

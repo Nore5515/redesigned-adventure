@@ -20,4 +20,5 @@ public class EnemySO : ScriptableObject
 
     [SerializeField] public int xpReward = 30;
     [SerializeField] public int cashReward = 50;
+    [SerializeField] public int scoreReward = 50;
 }

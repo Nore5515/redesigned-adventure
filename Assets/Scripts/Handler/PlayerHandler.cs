@@ -16,7 +16,8 @@ public class PlayerHandler : MonoBehaviour
 
     [SerializeField] public PlayerStats playerStats;
     [SerializeField] public PlayerStats defaultPlayerStats;
-    
+
+    [SerializeField] private GameObject gameOverMenuObj;
     
     // private PlayerStats
     
@@ -80,6 +81,17 @@ public class PlayerHandler : MonoBehaviour
 
     private void Update()
     {
+        if (playerStats.hp <= 0)
+        {
+            gameOverMenuObj.SetActive(true);
+            Pause();
+        }
+    }
+    
+    public void Pause()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
     }
 
     IEnumerator RegenLoop()

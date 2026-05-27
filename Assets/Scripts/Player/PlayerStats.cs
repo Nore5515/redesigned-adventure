@@ -26,6 +26,7 @@ namespace Player
 
         public float speed = 12.0f;
 
+        public int score = 0;
   
         public int cash = 0;
         

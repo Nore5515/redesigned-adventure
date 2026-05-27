@@ -18,6 +18,7 @@ public class EnemyInstance : MonoBehaviour, Entity
     private int m_HP;
     private int xpReward;
     private int cashReward;
+    private int scoreReward;
 
     private NavMeshAgent agent;
 
@@ -38,6 +39,7 @@ public class EnemyInstance : MonoBehaviour, Entity
         m_HP = enemySO.m_HP;
         xpReward = enemySO.xpReward;
         cashReward = enemySO.cashReward;
+        scoreReward = enemySO.scoreReward;
         
         // Mesh Scaling
         meshObj.GetComponent<Renderer>().material.color = enemySO.color;
@@ -178,14 +180,19 @@ public class EnemyInstance : MonoBehaviour, Entity
 
     #region Entity Functions
     
-    public void DealDamage(int damage, Entity source)
+    public void ReceieveDamage(int damage, Entity source)
     {
         m_HP -= damage;
         if (m_HP <= 0)
         {
-            source.KillReward(GetXPReward(), GetCashReward());
+            source.KillReward(GetXPReward(), GetCashReward(), GetScoreReward());
             Die();
         }
+    }
+
+    public int GetScoreReward()
+    {
+        return scoreReward;
     }
 
     public void DealKnockback(float knockback, Entity source)
@@ -208,7 +215,7 @@ public class EnemyInstance : MonoBehaviour, Entity
         return cashReward;
     }
     
-    public void KillReward(int xp, int cash)
+    public void KillReward(int xp, int cash, int score)
     {
         Debug.Log("ENEMY GOT A KILL LOL!");
         throw new NotImplementedException();
