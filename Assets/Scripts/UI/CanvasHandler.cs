@@ -20,20 +20,20 @@ public class CanvasHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cashText;
 
     
-    public void UpdateAll(PlayerStats playerStats)
+    public void UpdateAll(PlayerHandler ph, PlayerStats playerStats)
     {
-        UpdateHP(playerStats.hp, playerStats.maxHp);
+        UpdateHP(ph.playerEntity.hp, ph.playerEntity.maxHP);
         UpdateMP(playerStats.mp, playerStats.maxMp);
         UpdateXP(playerStats.xp, playerStats.maxXp);
         UpdateCash(playerStats.cash);
-        UpdateLevel(playerStats.level);
+        // UpdateLevel(playerStats.level);
     }
     
     public void UpdateHP(int hp, int maxHP)
     {
         hpSlider.maxValue = maxHP;
         hpSlider.value = hp;
-        hpText.text = hp.ToString() + "/" + maxHP.ToString();
+        hpText.text = hp + "/" + maxHP;
     }
 
     public void UpdateCash(int cash)

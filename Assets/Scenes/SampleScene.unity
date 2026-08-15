@@ -33622,6 +33622,11 @@ MonoBehaviour:
   knockbackForce: 200
   explosionPrefab: {fileID: 6200171251752617550, guid: dd4829207ff53924ba243d240e778106, type: 3}
   auraExplosionPrefab: {fileID: 6200171251752617550, guid: 00095e3e683f6204fa23b7487f487a3d, type: 3}
+  swordPicHandler: {fileID: 0}
+  forwardAnchor: {fileID: 0}
+  playerHandler: {fileID: 0}
+  swordRange: 5
+  swordDamage: 1
   gravity: -19.62
   groundDistance: 0.4
   jumpHeight: 3
@@ -33633,6 +33638,8 @@ MonoBehaviour:
     m_Bits: 128
   noteBuffer: {fileID: 1589028585}
   postProcessVolume: {fileID: 832575518}
+  shopPanel: {fileID: 0}
+  invPanel: {fileID: 0}
 --- !u!1001 &1470685830
 PrefabInstance:
   m_ObjectHideFlags: 0

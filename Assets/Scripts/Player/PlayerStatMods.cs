@@ -9,6 +9,8 @@ namespace Player
     {
         public int meleeDamageBonus = 0;
         public int meleePoisonBonus = 0;
+
+        public int spellDamageBonus = 0;
         
         public int maxHpBonus = 0;
         public int hpRegenBonus = 0;

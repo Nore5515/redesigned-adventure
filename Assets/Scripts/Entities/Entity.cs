@@ -4,14 +4,18 @@ namespace Entities
 {
     public interface Entity
     {
-        // TO THE ENTITY. GOD!!
-        public void ReceieveDamage(int damage, Entity source);
-        public void DealKnockback(float knockback, Entity source);
-        public int GetHP();
+        
+        // Values
+        public int hp { get; set; }
+        public int maxHP { get; set; }
 
+        // TO THE ENTITY. GOD!!
+        public void TakeDamageFromSource(int damage, Entity source);
+        public void DealKnockback(float knockback, Entity source);
+        
+		public int GetHP();
         public int GetXPReward();
         public int GetCashReward();
-
         public int GetScoreReward();
         
         // When this entity gets a kill, it calls this to get its rewards

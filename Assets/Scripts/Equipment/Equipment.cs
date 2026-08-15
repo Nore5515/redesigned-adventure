@@ -12,7 +12,7 @@ namespace EquipmentNamespace
     {
         public Guid id = Guid.NewGuid();
         
-        public List<Passive> passives;
+        public Passive passive;
 
         public ArmorSlot slot;
         

@@ -13,7 +13,19 @@ MonoBehaviour:
   m_Name: Test1
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - Hi there!
-  - Welcome to Song of the Void!
-  - This is still in development.
-  - It has no real direction; I just wanted a game to throw all my ideas together.
+  - text: Test!
+    talkingSprites: {fileID: 0}
+    duration: 0
+    endSprites: {fileID: 0}
+  - text: ' 2'
+    talkingSprites: {fileID: 0}
+    duration: 0
+    endSprites: {fileID: 0}
+  - text: Test 3
+    talkingSprites: {fileID: 0}
+    duration: 0
+    endSprites: {fileID: 0}
+  - text: ' 44444'
+    talkingSprites: {fileID: 0}
+    duration: 0
+    endSprites: {fileID: 0}

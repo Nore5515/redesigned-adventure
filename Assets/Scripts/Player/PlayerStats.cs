@@ -11,9 +11,8 @@ namespace Player
         
         public int meleeDamage = 1;
         public int meleePoison = 0;
+        public int spellDamageBoost = 0;
         
-        public int hp = 8;
-        public int maxHp = 8;
         public int hpRegen = 0;
         
         public int mp = 12;

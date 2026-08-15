@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322aeb84fd234938ab6e43cf28e0ed18, type: 3}
+  m_Name: WeakWave-Tank-30
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStuf.WaveSO
+  commonEnemyPrefab: {fileID: 7524275476309250714, guid: fa71505828cadb74aae6153f496b3116, type: 3}
+  tankEnemyPrefab: {fileID: 7524275476309250714, guid: 66e411f916548a240a2b78deeb3a0d6b, type: 3}
+  commonEnemyCount: 0
+  tankEnemyCount: 5
+  waveDelay: 30

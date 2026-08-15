@@ -9,7 +9,7 @@ namespace Passives
     [Serializable]
     public class Passive : ScriptableObject
     {
-        public List<Trigger> triggers;
+        public Trigger trigger;
         public List<Effect> effects;
     }
 }

@@ -26,6 +26,8 @@ namespace Abilities
         {
             if (caster.GetGameObject().GetComponent<LineRenderer>() == null) return;
             Debug.Log("Laser Fired!");
+
+            PlayerHandler ph = GameObject.FindGameObjectWithTag("player_handler").GetComponent<PlayerHandler>();
             
             GameObject casterGo = caster.GetGameObject();
             
@@ -68,7 +70,7 @@ namespace Abilities
                         Entity hitEntity = hit.collider.GetComponent<Entity>();
                         if (hitEntity != caster)
                         {
-                            hitEntity.ReceieveDamage(dmg, caster);
+                            hitEntity.TakeDamageFromSource(dmg + ph.playerStats.spellDamageBoost + ph.playerStats.statMods.spellDamageBonus, caster);
                         }
                     }
                 }
@@ -80,6 +82,6 @@ namespace Abilities
             lineRenderer.SetPosition(1, targetPos);
 
             casterGo.GetComponent<MonoBehaviour>().StartCoroutine((DisableLaser(lineRenderer)));
-        }
+        } 
     }
 }

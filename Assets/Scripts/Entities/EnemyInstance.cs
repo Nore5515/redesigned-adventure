@@ -6,16 +6,18 @@ using UnityEngine.AI;
 
 public class EnemyInstance : MonoBehaviour, Entity
 {
-    private GameObject playerObj;
+    public GameObject playerObj;
     private PlayerHandler playerHandler;
 
     [SerializeField] private GameObject meshObj;
-
+    [SerializeField] private GameObject healthbar;
+    
     // Stats Loaded from Enemy Scriptable Object
     public EnemySO enemySO;
     private float m_Speed;
     private float m_Acceleration;
-    private int m_HP;
+    public int hp { get; set; }
+    public int maxHP { get; set; }
     private int xpReward;
     private int cashReward;
     private int scoreReward;
@@ -28,7 +30,7 @@ public class EnemyInstance : MonoBehaviour, Entity
 
     public Rigidbody rb;
 
-    private bool knockbacked = false;
+    public bool knockbacked = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,7 +38,8 @@ public class EnemyInstance : MonoBehaviour, Entity
         rb = GetComponent<Rigidbody>();
         m_Speed = enemySO.m_Speed;
         m_Acceleration = enemySO.m_Acceleration;
-        m_HP = enemySO.m_HP;
+        hp = enemySO.m_HP;
+        maxHP = enemySO.m_HP;
         xpReward = enemySO.xpReward;
         cashReward = enemySO.cashReward;
         scoreReward = enemySO.scoreReward;
@@ -46,6 +49,11 @@ public class EnemyInstance : MonoBehaviour, Entity
         meshObj.transform.localScale = enemySO.localScale;
         Vector3 tempPos = meshObj.transform.position;
         meshObj.transform.position = tempPos + new Vector3(0.0f, enemySO.localScale.y - 1, 0.0f);
+
+        MeshRenderer mr = meshObj.GetComponent<MeshRenderer>();
+        float healthbarY = mr.bounds.size.y * 0.5f;
+        // take the height, half it, then add 0.5f for a nice floating HP bar
+        healthbar.transform.position = new Vector3(meshObj.transform.position.x, meshObj.transform.position.y + healthbarY + 0.5f, meshObj.transform.position.z);
         
         // Collider Scaling
         CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
@@ -74,44 +82,20 @@ public class EnemyInstance : MonoBehaviour, Entity
     // Update is called once per frame
     void Update()
     {
-        // transform.LookAt(playerObj.transform, Vector3.up);
-        
-        // While it works, its very choppy and sporadic. Often times it ends up unable to move at all.
-        // I suspsect it is an interaction with rigid body logic. Might as well use what I got (rb).
-        // transform.Translate(transform.forward * (speed * Time.deltaTime));
-        //
-        // Vector3 direction = (playerObj.transform.position - transform.position).normalized;
-        // rb.linearVelocity = direction * m_Speed;
-        //
         Debug.DrawRay(transform.position, transform.forward * 20.0f, Color.red);
-
+        
         if (!knockbacked)
         {
-            if (enemySO.weeping && isWatched)
-            {
-                agent.SetDestination(this.transform.position);
-            }
-            else
-            {
-                MovementLogic(playerObj.transform.position);
-            }
+            MovementLogic(playerObj.transform.position);
         }
     }
 
     void MovementLogic(Vector3 pos)
     {
         NavMeshPath path = new NavMeshPath();
-        if (NavMesh.CalculatePath(transform.position, pos, NavMesh.AllAreas, path)) {
-            if (path.status == NavMeshPathStatus.PathComplete) {
-                // Path exists!
-                agent.SetDestination(pos);
-            }
-            else
-            {
-                // we want them to move to the nearest door interactable to open it up and try again.
-                agent.SetDestination(pos);
-
-            }
+        Vector3 playerFeet = new Vector3(pos.x, pos.y-2.5f, pos.z);
+        if (NavMesh.CalculatePath(transform.position, playerFeet, NavMesh.AllAreas, path)) {
+            agent.SetDestination(pos);
         }
     }
 
@@ -180,10 +164,10 @@ public class EnemyInstance : MonoBehaviour, Entity
 
     #region Entity Functions
     
-    public void ReceieveDamage(int damage, Entity source)
+    public void TakeDamageFromSource(int damage, Entity source)
     {
-        m_HP -= damage;
-        if (m_HP <= 0)
+        hp -= damage;
+        if (hp <= 0)
         {
             source.KillReward(GetXPReward(), GetCashReward(), GetScoreReward());
             Die();
@@ -202,7 +186,7 @@ public class EnemyInstance : MonoBehaviour, Entity
 
     public int GetHP()
     {
-        return m_HP;
+        return hp;
     }
 
     public int GetXPReward()

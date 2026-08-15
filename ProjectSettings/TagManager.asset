@@ -12,6 +12,12 @@ TagManager:
   - navmesh
   - interactable
   - player_handler
+  - level_select
+  - enemy_spawn_handler
+  - shop_stall
+  - enemy
+  - save
+  - elevator
   layers:
   - Default
   - TransparentFX

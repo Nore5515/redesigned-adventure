@@ -7,13 +7,16 @@ using UnityEngine;
 public class WallObject : MonoBehaviour, Entity
 {
     [SerializeField] private List<GameObject> wallParts;
-    public int hp;
+    public int hp { get; set; }
+    public int maxHP { get; set; }
+
     [SerializeField] BoxCollider wallCollider;
     public float lifetime;
 
     public void Init(int hp, Material material, bool passThrough, float lifetime)
     {
         this.hp = hp;
+        maxHP = hp;
         this.lifetime = lifetime;
         StartCoroutine(DestroyAfterTime());
         foreach (var wallPart in wallParts)
@@ -33,7 +36,7 @@ public class WallObject : MonoBehaviour, Entity
         Destroy(gameObject);   
     }
 
-    public void ReceieveDamage(int damage, Entity source)
+    public void TakeDamageFromSource(int damage, Entity source)
     {
         hp -= damage;
         if (hp <= 0)
@@ -52,7 +55,7 @@ public class WallObject : MonoBehaviour, Entity
     {
         return hp;
     }
-
+    
     public int GetXPReward()
     {
         return 10;

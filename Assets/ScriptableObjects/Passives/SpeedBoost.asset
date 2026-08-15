@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864a51aa14334effafaecef2f45d19e9, type: 3}
   m_Name: SpeedBoost
   m_EditorClassIdentifier: Assembly-CSharp::Passives.Passive
-  triggers:
-  - {fileID: 11400000, guid: 9d27d56390ea0c943810c60dc13ba7b9, type: 2}
+  trigger: {fileID: 11400000, guid: 9d27d56390ea0c943810c60dc13ba7b9, type: 2}
   effects:
   - {fileID: 11400000, guid: 5089d9bdd33c87b469dcbaf87ec04105, type: 2}

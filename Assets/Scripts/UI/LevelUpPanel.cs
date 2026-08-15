@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Mime;
+using Abilities;
+using Entities;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -22,12 +24,21 @@ public class LevelUpPanel : MonoBehaviour
     
     
     PlayerStats playerStats;
+    private Entity playerEntity;
 
     private Button currentlyLockedButton = null;
 
     private int assignedAbilities = 0;
     private AbilitySO assignedAbility = null;
-    
+
+    private bool assignedHP = false;
+    [SerializeField] private Button raiseHPButton;
+
+    private void Start()
+    {
+        playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+    }
+
     public void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -35,6 +46,8 @@ public class LevelUpPanel : MonoBehaviour
         UpdateStats();
         assignedAbilities = 0;
         assignedAbility = null;
+        assignedHP = false;
+        UpdateLockedButton();
         noAbilityConfirmText.gameObject.SetActive(false);
         confirmButtonText.text = "Continue";
     }
@@ -60,6 +73,7 @@ public class LevelUpPanel : MonoBehaviour
     {
         currentlyLockedButton = button;
         assignedAbility = ability;
+        assignedHP = false;
         UpdateLockedButton();
     }
 
@@ -73,6 +87,14 @@ public class LevelUpPanel : MonoBehaviour
 
     void UpdateLockedButton()
     {
+        if (assignedHP == false)
+        {
+            raiseHPButton.interactable = true;
+        }
+        else
+        {
+            raiseHPButton.interactable = false;
+        }
         foreach (AbilityPurchaseButton button in abilityButtons)
         {
             button.button.interactable = true;
@@ -85,14 +107,14 @@ public class LevelUpPanel : MonoBehaviour
     
     void UpdateStats()
     {
-        hpText.text = playerStats.hp + "/" + playerStats.maxHp;
+        hpText.text = playerEntity.hp + "/" + playerEntity.maxHP;
         speedText.text = playerStats.statMods.speedMultiplier.ToString();
         jumpText.text = playerStats.statMods.jumpMultiplier.ToString();
     }
     
     public void Unpause()
     {
-        if (assignedAbility == null && noAbilityConfirmText.gameObject.activeSelf == false)
+        if (assignedAbility == null && noAbilityConfirmText.gameObject.activeSelf == false && assignedHP == false)
         {
             confirmButtonText.text = "Confirm";
             noAbilityConfirmText.gameObject.SetActive(true);
@@ -100,10 +122,26 @@ public class LevelUpPanel : MonoBehaviour
         }
         Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.Locked;
-        AssignAbility();
+        if (assignedHP)
+        {
+            playerEntity.maxHP += 2;
+            playerEntity.hp += 2;
+            playerStats.hpRegen = Mathf.FloorToInt(playerEntity.maxHP * 0.1f);
+        }
+        else
+        {
+            AssignAbility();
+        }
         assignedAbility = null;
         UpdateLockedButton();
         gameObject.SetActive(false);
+    }
+
+    public void ClickRaiseMaxHP()
+    {
+        assignedHP = true;
+        assignedAbility = null;
+        UpdateLockedButton();
     }
 
     public void RaiseHPOnClick()

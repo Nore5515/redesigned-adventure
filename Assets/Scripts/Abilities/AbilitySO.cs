@@ -21,12 +21,12 @@ public class AbilitySO : ScriptableObject
     
     public Effect[] effects;
 
-    public bool CanCast(PlayerStats playerStats)
+    public bool CanCast(PlayerStats playerStats, Entity caster)
     {
         if (!canCast) return false;
         // TODO: Implement cooldowns properly.
         if (!cooldownComplete && false) return false; 
-        if (playerStats.hp >= hpCost && playerStats.mp >= manaCost)
+        if (caster.hp >= hpCost && playerStats.mp >= manaCost)
         {
             // Debug.Log("Can afford: " + name);
             return true;
@@ -38,7 +38,7 @@ public class AbilitySO : ScriptableObject
     public bool Cast(PlayerStats playerStats, Entity caster, Entity[] targets)
     {
         Debug.Log("Casting Ability: " + name);
-        if (!CanCast(playerStats)) return false; 
+        if (!CanCast(playerStats, caster)) return false; 
         
         foreach (Effect effect in effects)
         {

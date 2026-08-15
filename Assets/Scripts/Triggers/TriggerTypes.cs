@@ -2,6 +2,9 @@
 {
     public enum TriggerTypes
     {
-        AlwaysOn
+        AlwaysOn,
+        OnHealthChange,
+        OnSwordKill,
+        OnSwordHit
     }
 }

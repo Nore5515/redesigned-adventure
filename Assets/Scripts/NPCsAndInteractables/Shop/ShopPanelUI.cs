@@ -45,11 +45,22 @@ public class ShopPanelUI : MonoBehaviour
     
     ShopPurchaseButton selectedButton;
     [SerializeField] InventoryHandler inventoryHandler;
+
+    private ShopStall shopStall;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         countdown = neilFrameTime;
+        shopStall = GameObject.FindGameObjectWithTag("shop_stall").GetComponent<ShopStall>();
+        RefreshShop();
+    }
+
+    public void RefreshButtonPressed()
+    {
+        shopStall.ShopDown(15.0f);
+        RefreshShop();
+        CloseShop();
     }
 
     public void RefreshShop()
@@ -165,7 +176,7 @@ public class ShopPanelUI : MonoBehaviour
     public void OpenShop()
     {
         Pause();
-        RefreshShop();
+        // RefreshShop();
         gameObject.SetActive(true);
     }
     

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b8f0fc8c5c4144f854aefb420643aa, type: 3}
   m_Name: HelmOfSpeed
   m_EditorClassIdentifier: Assembly-CSharp::Equipment.Equipment
-  passives:
-  - {fileID: 11400000, guid: b7367b19c177e11408c7c5bed8cd5550, type: 2}
+  passive: {fileID: 11400000, guid: b7367b19c177e11408c7c5bed8cd5550, type: 2}
   slot: 0
   icon: {fileID: 21300000, guid: 0b6823bc98a250a458e8dce52af71139, type: 3}
   name: Speedster's Hat
   description: A light green cap, this hat grants a movement bonus.
-  cost: 100
+  cost: 40

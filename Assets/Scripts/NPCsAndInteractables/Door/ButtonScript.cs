@@ -18,7 +18,7 @@ namespace Door
             doorScript.ButtonPressed();
         }
 
-        public void Interact(PlayerMovement p)
+        public void Interact(PlayerEntity p)
         {
             ButtonPressed();
         }

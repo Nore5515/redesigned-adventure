@@ -7,21 +7,30 @@ using UnityEngine.UI;
 
 public class DialogueBox : MonoBehaviour
 {
+    [SerializeField] private float talkDist = 10.0f;
+    
     private TextMeshProUGUI text;
+    private GameObject playerGO;
 
     private List<DialogueLine> lines = new();
     private int currentIndex = 0;
     
+    Action endAction;
+    private Vector3 sourcePos;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerGO = GameObject.FindGameObjectWithTag("Player");
         text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         GetComponent<Image>().enabled = false;
         text.enabled = false;
     }
 
-    public void LoadLines(List<DialogueLine> _lines)
+    public void LoadLines(List<DialogueLine> _lines, Action onEnd = null, Vector3 sourcePos = default)
     {
+        this.sourcePos = sourcePos;
+        endAction = onEnd;
         currentIndex = 0;
         GetComponent<Image>().enabled = true;
         text.enabled = true;
@@ -34,8 +43,7 @@ public class DialogueBox : MonoBehaviour
         currentIndex++;
         if (currentIndex == lines.Count)
         {
-            GetComponent<Image>().enabled = false;
-            text.enabled = false;
+            StopTalking();
         }
         else
         {
@@ -43,11 +51,29 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
+    private void StopTalking()
+    {
+        GetComponent<Image>().enabled = false;
+        endAction?.Invoke();
+        text.enabled = false;
+    }
+
     private void Update()
     {
-        if (currentIndex < lines.Count && Input.GetMouseButtonDown(0))
+        if (text.enabled)
         {
-            LoadNextLine();
+            if (Vector3.Distance(playerGO.transform.position, sourcePos) > talkDist)
+            {
+                StopTalking();
+            }
+        }
+        
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
+        {
+            if (currentIndex < lines.Count)
+            {
+                LoadNextLine();
+            }
         }
     }
 }

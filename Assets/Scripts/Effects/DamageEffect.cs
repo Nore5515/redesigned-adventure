@@ -14,7 +14,7 @@ namespace Abilities
         {
             foreach (var target in targets)
             {
-                target.ReceieveDamage(damage, caster);
+                target.TakeDamageFromSource(damage, caster);
             }       
         }
     }
