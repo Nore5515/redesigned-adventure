@@ -8,9 +8,14 @@ namespace ElevatorScripts
     {
         [SerializeField] private Elevator elevator;
 
+        public bool disabled = false;
+        
         public void Interact(PlayerEntity p)
         {
-            elevator.ButtonPress();
+            if (!disabled)
+            {
+                elevator.ButtonPress();
+            }
         }
     }
 }

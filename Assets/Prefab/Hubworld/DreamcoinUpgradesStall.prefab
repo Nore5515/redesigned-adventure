@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3672862742308300086}
-  - component: {fileID: 8780723898124245933}
+  - component: {fileID: 6821644613577886223}
   m_Layer: 0
-  m_Name: LevelSelectStall
+  m_Name: DreamcoinUpgradesStall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 289387180170904072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8780723898124245933
+--- !u!114 &6821644613577886223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6204417558703401827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c9553b6e46ff8e4f812f783d8f811fd, type: 3}
+  m_Script: {fileID: 11500000, guid: b41345ca6fc169943830d4fff0207d0b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  levelSelectUI: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::DreamcoinStall
+  dreamcoinShopGO: {fileID: 0}
 --- !u!1001 &411421377361326250
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ namespace ElevatorScripts
     
 public class Elevator : MonoBehaviour
 {
+    public bool defaultOff = false;
+    
     public bool movingUp = false;
     public bool movingDown = false;
 
@@ -32,6 +34,10 @@ public class Elevator : MonoBehaviour
     {
         Initalize();
         ghost.SetActive(false);
+        if (defaultOff)
+        {
+            SetDest(null);
+        }
     }
 
     public void UpdateLevel(string newLevel)
@@ -56,10 +62,12 @@ public class Elevator : MonoBehaviour
         if (newDest != null)
         {
             glowBox.GetComponent<Renderer>().material = glowMat;
+            glowBox.GetComponent<ElevatorButton>().disabled = false;
         }
         else
         {
             glowBox.GetComponent<Renderer>().material = flatMat;
+            glowBox.GetComponent<ElevatorButton>().disabled = true;
         }   
         Debug.Log("New Level is " + newDest);
         levelDestination = newDest;
