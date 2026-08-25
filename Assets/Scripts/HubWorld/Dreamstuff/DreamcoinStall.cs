@@ -11,10 +11,24 @@ public class DreamcoinStall : MonoBehaviour, Interactable
         if (dreamcoinShopGO.activeInHierarchy)
         {
             dreamcoinShopGO.SetActive(false);
+            Unpause();
         }
         else
         {
             dreamcoinShopGO.SetActive(true);
+            Pause();
         }
+    }
+    
+    public void Pause()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
+    }
+    
+    public void Unpause()
+    {
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

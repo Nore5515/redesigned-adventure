@@ -20,6 +20,6 @@ public class HubWorldHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dreamCoinText.text = saveObject.dreamCoin.ToString();
+        dreamCoinText.text = saveObject.GetSaveData().DreamCoin.ToString();
     }
 }

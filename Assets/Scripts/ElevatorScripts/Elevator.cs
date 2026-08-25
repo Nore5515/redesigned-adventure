@@ -54,6 +54,8 @@ public class Elevator : MonoBehaviour
 
     public void ButtonPress()
     {
+        SaveObject saveObj = GameObject.FindGameObjectWithTag("save").GetComponent<SaveObject>();
+        saveObj.dreamCoin += 10;   
         SceneManager.LoadScene(levelDestination);
     }
 
@@ -133,8 +135,6 @@ public class Elevator : MonoBehaviour
         Initalize();
         ghost.transform.position = bottom;
     }
-    
-    
 
     public void MoveDown()
     {

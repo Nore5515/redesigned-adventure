@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using EquipmentNamespace;
+using JetBrains.Annotations;
 using Save;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,13 +22,19 @@ public class SaveData
     public int DreamCoin;
     public List<ArenaProgress> Arenas = new();
     public List<Equipment> SavedEquipment = new();
+    
+    // Dreamperks
+    public bool conceptualized = false;
+    public int dreaming = 0;
+    public int lucid = 0;
+    public int ego = 0;
 }
 
 public class SaveObject : MonoBehaviour
 {
     private List<Equipment> savedEquipment = new();
-    private SaveModel saveModel = new();
     public int dreamCoin = 0;
+    [CanBeNull] private SaveData data;
 
     private List<ArenaProgress> arenas = new List<ArenaProgress>
     {
@@ -35,6 +42,21 @@ public class SaveObject : MonoBehaviour
         new ArenaProgress { ArenaName = "Midday", FurthestWave = 0, IsCompleted = false, BestTime = float.MaxValue },
         new ArenaProgress { ArenaName = "Dusk", FurthestWave = 0, IsCompleted = false, BestTime = float.MaxValue }
     };
+
+    public SaveData GetSaveData()
+    {
+        if (data == null)
+        {
+            LoadFromFile();
+        }
+
+        return data;
+    }
+
+    public void SaveData([CanBeNull] SaveData newData)
+    {
+        SaveToFile(newData);
+    }
 
     private string saveFilePath;
 
@@ -51,16 +73,6 @@ public class SaveObject : MonoBehaviour
 
         // Set up the save file path
         saveFilePath = Path.Combine(Application.persistentDataPath, "saveData.json");
-    }
-
-    public void SaveProgress(SaveModel _saveModel)
-    {
-        saveModel = _saveModel;
-    }
-    
-    public SaveModel GetSaveProgress()
-    {
-        return saveModel;
     }
 
     public void SaveEquip(List<Equipment> _savedEquipment)
@@ -99,19 +111,28 @@ public class SaveObject : MonoBehaviour
 
     // Offline Save/Load Methods
 
-    public void SaveToFile()
+    public void SaveToFile([CanBeNull] SaveData newData)
     {
-        SaveData data = new SaveData
+        if (newData == null)
         {
-            DreamCoin = dreamCoin,
-            Arenas = arenas,
-            SavedEquipment = savedEquipment
-        };
+            SaveData data = new SaveData
+            {
+                DreamCoin = dreamCoin,
+                Arenas = arenas,
+                SavedEquipment = savedEquipment,
+                conceptualized = false,
+                dreaming = 0,
+                lucid = 0,
+                ego = 0
+            };
+            newData = data;
+        }
 
-        string json = JsonUtility.ToJson(data, true);
+        string json = JsonUtility.ToJson(newData, true);
         try
         {
             File.WriteAllText(saveFilePath, json);
+            data = newData;
             Debug.Log($"Save successful: {saveFilePath}");
         }
         catch (Exception e)
@@ -127,12 +148,7 @@ public class SaveObject : MonoBehaviour
             try
             {
                 string json = File.ReadAllText(saveFilePath);
-                SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-                dreamCoin = data.DreamCoin;
-                arenas = data.Arenas;
-                savedEquipment = data.SavedEquipment;
-
+                data = JsonUtility.FromJson<SaveData>(json);
                 Debug.Log("Load successful!");
             }
             catch (Exception e)
@@ -143,6 +159,17 @@ public class SaveObject : MonoBehaviour
         else
         {
             Debug.Log("No save file found; starting with default values.");
+            SaveData newData = new SaveData
+            {
+                DreamCoin = 10,
+                Arenas = arenas,
+                SavedEquipment = savedEquipment,
+                conceptualized = false,
+                dreaming = 0,
+                lucid = 0,
+                ego = 0
+            };
+            data = newData;
         }
     }
 }
